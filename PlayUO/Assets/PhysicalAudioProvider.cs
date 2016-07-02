@@ -12,13 +12,13 @@ using Ultima.Data;
 
 namespace PlayUO.Assets
 {
-  public sealed class PhysicalAudioProvider : IAudioProvider, IDisposable
+  public sealed class PhysicalAudioProvider : IAudioProvider
   {
     private const int HeaderSize = 40;
-    private readonly SharpDX.DirectSound.DirectSound _soundDevice;
+    private readonly DirectSound _soundDevice;
     private readonly WaveFormat _waveFormat;
 
-    public PhysicalAudioProvider(SharpDX.DirectSound.DirectSound soundDevice)
+    public PhysicalAudioProvider(DirectSound soundDevice)
     {
       if (soundDevice == null)
         throw new ArgumentNullException("soundDevice");
@@ -39,28 +39,28 @@ namespace PlayUO.Assets
     public SecondarySoundBuffer Acquire(int soundId)
     {
       if (soundId < 0 || soundId >= 4096)
-        return (SecondarySoundBuffer) null;
-      return (SecondarySoundBuffer) Archives.Sound.Open<SecondarySoundBuffer>(PhysicalAudioProvider.GetFilePath(soundId), (Func<Stream, M0>) (stream =>
+        return null;
+      return (SecondarySoundBuffer) Archives.Sound.Open<SecondarySoundBuffer>(GetFilePath(soundId), stream =>
       {
         SoundBufferDescription bufferDescription1 = new SoundBufferDescription();
-        bufferDescription1.Format = (__Null) this._waveFormat;
-        bufferDescription1.BufferBytes = (__Null) checked ((int) (stream.Length - 40L));
+        bufferDescription1.Format = _waveFormat;
+        bufferDescription1.BufferBytes = checked ((int) (stream.Length - 40L));
         SoundBufferDescription bufferDescription2 = bufferDescription1;
-        int num1 = bufferDescription2.Flags | 128;
-        bufferDescription2.Flags = (__Null) num1;
+        BufferFlags num1 = bufferDescription2.Flags | (BufferFlags) 128;
+        bufferDescription2.Flags = num1;
         SoundBufferDescription bufferDescription3 = bufferDescription1;
-        int num2 = bufferDescription3.Flags | 32;
-        bufferDescription3.Flags = (__Null) num2;
+        BufferFlags num2 = bufferDescription3.Flags | (BufferFlags) 32;
+        bufferDescription3.Flags = num2;
         SoundBufferDescription bufferDescription4 = bufferDescription1;
-        int num3 = bufferDescription4.Flags | 64;
-        bufferDescription4.Flags = (__Null) num3;
-        SecondarySoundBuffer secondarySoundBuffer = new SecondarySoundBuffer(this._soundDevice, bufferDescription1);
+        BufferFlags num3 = bufferDescription4.Flags | (BufferFlags) 64;
+        bufferDescription4.Flags = num3;
+        SecondarySoundBuffer secondarySoundBuffer = new SecondarySoundBuffer(_soundDevice, bufferDescription1);
         stream.Seek(40L, SeekOrigin.Begin);
         byte[] buffer = new byte[stream.Length - 40L];
         stream.Read(buffer, 0, buffer.Length);
-        ((SoundBuffer) secondarySoundBuffer).Write<byte>((M0[]) buffer, 0, (LockFlags) 2);
+        secondarySoundBuffer.Write( buffer, 0, (SharpDX.DirectSound.LockFlags) 2);
         return secondarySoundBuffer;
-      }));
+      });
     }
 
     public void Dispose()

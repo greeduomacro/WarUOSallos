@@ -149,7 +149,6 @@ namespace PlayUO.Profiles
 
     private Preferences(bool isLoading)
     {
-      base.\u002Ector();
       if (isLoading)
         return;
       this.m_Footsteps = new FootstepData();

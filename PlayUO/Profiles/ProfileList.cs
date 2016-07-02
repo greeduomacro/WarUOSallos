@@ -39,7 +39,6 @@ namespace PlayUO.Profiles
 
     public ProfileList()
     {
-      base.\u002Ector();
       this.m_Profiles = new ProfileCollection();
     }
 

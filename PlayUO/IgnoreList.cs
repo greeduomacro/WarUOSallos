@@ -4,6 +4,7 @@
 // MVID: 0CAC2BC7-B53A-42C2-916C-A40DD9E7563D
 // Assembly location: C:\Program Files (x86)\Electronic Arts\Ultima Online Classic\Ultima.Client.exe
 
+using System;
 using PlayUO.Profiles;
 using Sallos;
 
@@ -11,10 +12,10 @@ namespace PlayUO
 {
   public class IgnoreList : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("ignore", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ Character.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("ignore",  Construct, Character.TypeCode);
     private CharacterCollection m_Characters;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -48,7 +49,6 @@ namespace PlayUO
 
     public IgnoreList()
     {
-      base.\u002Ector();
       this.m_Characters = new CharacterCollection();
     }
 
@@ -65,7 +65,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Characters.Add(ip.GetChild() as Character);
     }
   }

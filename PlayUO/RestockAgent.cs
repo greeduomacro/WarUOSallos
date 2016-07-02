@@ -46,7 +46,6 @@ namespace PlayUO
 
     public RestockAgent()
     {
-      base.\u002Ector();
       this.ReagentCount = 100;
       this.HealPotionCount = 15;
       this.CurePotionCount = 15;

@@ -363,7 +363,6 @@ namespace PlayUO.Profiles
 
     public Options()
     {
-      base.\u002Ector();
       this.m_Flags = OptionFlag.Default;
       this.m_NotoQuery = NotoQueryType.On;
       this.m_HouseLevel = 1;

@@ -24,11 +24,6 @@ namespace PlayUO.Profiles
       }
     }
 
-    public GumpLayout()
-    {
-      base.\u002Ector();
-    }
-
     public virtual void Remove()
     {
       Preferences.Current.Layout.Gumps.Remove(this);

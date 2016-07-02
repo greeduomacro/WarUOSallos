@@ -10,11 +10,11 @@ namespace PlayUO.Profiles
 {
   public class ItemRef : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("item", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("item", Construct);
     private int serial;
     private int itemId;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -58,12 +58,10 @@ namespace PlayUO.Profiles
 
     protected ItemRef()
     {
-      base.\u002Ector();
     }
 
     public ItemRef(Item item)
     {
-      base.\u002Ector();
       if (item == null)
         return;
       this.serial = item.Serial;
@@ -72,7 +70,6 @@ namespace PlayUO.Profiles
 
     public ItemRef(int itemId)
     {
-      base.\u002Ector();
       this.itemId = itemId;
     }
 

@@ -10,13 +10,13 @@ namespace PlayUO.Profiles
 {
   public class Profile : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("profile", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ Preferences.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("profile", Construct, Preferences.TypeCode);
     private static Player m_Player;
     private static Profile m_Current;
     private string m_Name;
     private Preferences m_Preferences;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -56,12 +56,10 @@ namespace PlayUO.Profiles
 
     private Profile()
     {
-      base.\u002Ector();
     }
 
     public Profile(string name)
     {
-      base.\u002Ector();
       this.m_Name = name;
       this.m_Preferences = new Preferences();
     }
@@ -88,7 +86,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
       {
         object obj = (object) ip.GetChild();
         if (obj is Preferences)

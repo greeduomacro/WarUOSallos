@@ -12,12 +12,12 @@ namespace PlayUO
 {
   public class EquipAgent : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("equip", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[3]{ EquipAgent.ArmingAgent.TypeCode, EquipAgent.DressAgent.TypeCode, ItemRef.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("equip", Construct, ArmingAgent.TypeCode, DressAgent.TypeCode, ItemRef.TypeCode);
     private EquipAgent.ArmingAgent arms;
     private EquipAgent.DressAgent dress;
     private ItemRef mount;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -51,7 +51,6 @@ namespace PlayUO
 
     public EquipAgent()
     {
-      base.\u002Ector();
       this.arms = new EquipAgent.ArmingAgent();
       this.dress = new EquipAgent.DressAgent();
       this.mount = new ItemRef(0);
@@ -90,7 +89,7 @@ namespace PlayUO
     {
       this.arms = ip.GetChild() as EquipAgent.ArmingAgent;
       this.dress = ip.GetChild() as EquipAgent.DressAgent;
-      if (ip.get_HasChild())
+      if (ip.HasChild)
         this.mount = ip.GetChild() as ItemRef;
       else
         this.mount = new ItemRef(0);
@@ -98,10 +97,10 @@ namespace PlayUO
 
     public class ArmingAgent : PersistableObject
     {
-      public static readonly PersistableType TypeCode = new PersistableType("arms", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ EquipAgent.ArmingAgent.Slot.TypeCode });
+      public static readonly PersistableType TypeCode = new PersistableType("arms", Construct, Slot.TypeCode);
       private EquipAgent.ArmingAgent.Slot[] slots;
 
-      public virtual PersistableType TypeID
+      public override PersistableType TypeID
       {
         get
         {
@@ -111,7 +110,6 @@ namespace PlayUO
 
       public ArmingAgent()
       {
-        base.\u002Ector();
         this.slots = new EquipAgent.ArmingAgent.Slot[10];
       }
 
@@ -202,7 +200,7 @@ namespace PlayUO
 
       protected virtual void DeserializeChildren(PersistanceReader ip)
       {
-        while (ip.get_HasChild())
+        while (ip.HasChild)
         {
           EquipAgent.ArmingAgent.Slot slot = ip.GetChild() as EquipAgent.ArmingAgent.Slot;
           this.slots[slot.Index] = slot;
@@ -211,7 +209,7 @@ namespace PlayUO
 
       private class Slot : ItemRef
       {
-        public new static readonly PersistableType TypeCode = new PersistableType("slot", new ConstructCallback((object) null, __methodptr(Construct)));
+        public new static readonly PersistableType TypeCode = new PersistableType("slot", Construct);
         private int index;
 
         public override PersistableType TypeID
@@ -261,10 +259,10 @@ namespace PlayUO
 
     public class DressAgent : PersistableObject
     {
-      public static readonly PersistableType TypeCode = new PersistableType("dress", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ EquipAgent.DressAgent.Slot.TypeCode });
+      public static readonly PersistableType TypeCode = new PersistableType("dress", Construct, Slot.TypeCode);
       private List<EquipAgent.DressAgent.Slot> slots;
 
-      public virtual PersistableType TypeID
+      public override PersistableType TypeID
       {
         get
         {
@@ -274,7 +272,6 @@ namespace PlayUO
 
       public DressAgent()
       {
-        base.\u002Ector();
         this.slots = new List<EquipAgent.DressAgent.Slot>();
       }
 
@@ -341,13 +338,13 @@ namespace PlayUO
 
       protected virtual void DeserializeChildren(PersistanceReader ip)
       {
-        while (ip.get_HasChild())
+        while (ip.HasChild)
           this.slots.Add(ip.GetChild() as EquipAgent.DressAgent.Slot);
       }
 
       private class Slot : ItemRef
       {
-        public new static readonly PersistableType TypeCode = new PersistableType("slot", new ConstructCallback((object) null, __methodptr(Construct)));
+        public new static readonly PersistableType TypeCode = new PersistableType("slot", Construct);
         private Layer layer;
 
         public override PersistableType TypeID

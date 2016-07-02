@@ -13,11 +13,11 @@ namespace PlayUO
 {
   public class ScavengerAgent : PersistableObject, IItemValidator, IComparer
   {
-    public static readonly PersistableType TypeCode = new PersistableType("scavenger", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ ItemRef.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("scavenger", Construct, ItemRef.TypeCode);
     private ItemRefCollection m_Items;
     private ScavengerOptions m_Options;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -118,7 +118,6 @@ namespace PlayUO
 
     public ScavengerAgent()
     {
-      base.\u002Ector();
       this.m_Items = new ItemRefCollection();
       this.m_Options = ScavengerOptions.Default;
     }
@@ -167,7 +166,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Items.Add(ip.GetChild() as ItemRef);
     }
 

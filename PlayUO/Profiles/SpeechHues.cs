@@ -10,11 +10,11 @@ namespace PlayUO.Profiles
 {
   public class SpeechHues : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("speechHues", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("speechHues", Construct);
     public const int Default = 96;
     private int[] m_Hues;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -92,7 +92,6 @@ namespace PlayUO.Profiles
 
     public SpeechHues()
     {
-      base.\u002Ector();
       this.m_Hues = new int[6];
       for (int index = 0; index < this.m_Hues.Length; ++index)
         this.m_Hues[index] = 96;

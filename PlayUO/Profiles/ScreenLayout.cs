@@ -12,7 +12,7 @@ namespace PlayUO.Profiles
 {
   public class ScreenLayout : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("screenLayout", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[2]{ SpellIconLayout.TypeCode, SkillIconLayout.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("screenLayout", Construct, SpellIconLayout.TypeCode, SkillIconLayout.TypeCode);
     private Rectangle m_GameBounds;
     private Rectangle m_ScreenBounds;
     private bool m_Maximized;
@@ -21,7 +21,7 @@ namespace PlayUO.Profiles
     private GumpLayoutCollection m_Gumps;
     private bool m_Applying;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -108,7 +108,6 @@ namespace PlayUO.Profiles
 
     private ScreenLayout(bool isLoading)
     {
-      base.\u002Ector();
       this.m_Gumps = new GumpLayoutCollection();
       if (isLoading)
         return;
@@ -153,7 +152,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Gumps.Add(ip.GetChild() as GumpLayout);
     }
 

@@ -45,7 +45,6 @@ namespace PlayUO.Profiles
 
     public Config()
     {
-      base.\u002Ector();
       this.m_Profiles = new ProfileList();
       this.m_Servers = new ServerList();
       this.Load();

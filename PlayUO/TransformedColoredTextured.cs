@@ -7,13 +7,14 @@
 using SharpDX;
 using SharpDX.Direct3D9;
 using System.Runtime.InteropServices;
+using Microsoft.DirectX;
 
 namespace PlayUO
 {
   [StructLayout(LayoutKind.Sequential, Pack = 1)]
   public struct TransformedColoredTextured
   {
-    public const VertexFormat Format = ; //unable to render the field
+    public const VertexFormat Format = VertexFormat.Normal; //unable to render the field
     public Vector4 Position;
     public int Color;
     public float Tu;
@@ -27,7 +28,7 @@ namespace PlayUO
       }
       set
       {
-        this.Position.X = (__Null) (double) value;
+        this.Position.X = value;
       }
     }
 
@@ -39,7 +40,7 @@ namespace PlayUO
       }
       set
       {
-        this.Position.Y = (__Null) (double) value;
+        this.Position.Y = value;
       }
     }
 
@@ -51,7 +52,7 @@ namespace PlayUO
       }
       set
       {
-        this.Position.Z = (__Null) (double) value;
+        this.Position.Z = value;
       }
     }
 
@@ -63,7 +64,7 @@ namespace PlayUO
       }
       set
       {
-        this.Position.W = (__Null) (double) value;
+        this.Position.W = value;
       }
     }
 

@@ -11,7 +11,7 @@ namespace PlayUO
 {
   public class MacroData : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("macro", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ ActionData.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("macro", Construct, ActionData.TypeCode);
     public const Keys WheelUp = (Keys) 69632;
     public const Keys WheelDown = (Keys) 69633;
     public const Keys WheelPress = (Keys) 69634;
@@ -19,7 +19,7 @@ namespace PlayUO
     private Keys mods;
     private ActionCollection actions;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -107,7 +107,6 @@ namespace PlayUO
 
     public MacroData()
     {
-      base.\u002Ector();
       this.actions = new ActionCollection();
     }
 
@@ -159,7 +158,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild
         this.actions.Add(new Action(ip.GetChild() as ActionData));
     }
   }

@@ -10,10 +10,10 @@ namespace PlayUO.Profiles
 {
   public class ServerList : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("servers", new ConstructCallback((object) null, _methodptr(Construct)), new PersistableType[1]{ Server.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("servers", Construct, Server.TypeCode);
     private ServerCollection m_Servers;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -39,13 +39,12 @@ namespace PlayUO.Profiles
 
     public ServerList()
     {
-      base.\u002Ector();
       this.m_Servers = new ServerCollection();
     }
 
     private static PersistableObject Construct()
     {
-      return (PersistableObject) new ServerList();
+      return new ServerList();
     }
 
     protected virtual void SerializeChildren(PersistanceWriter op)

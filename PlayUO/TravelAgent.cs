@@ -10,10 +10,10 @@ namespace PlayUO
 {
   public class TravelAgent : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("travel", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ RunebookInfo.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("travel", Construct, RunebookInfo.TypeCode);
     private RunebookInfoCollection m_Runebooks;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -47,7 +47,6 @@ namespace PlayUO
 
     public TravelAgent()
     {
-      base.\u002Ector();
       this.m_Runebooks = new RunebookInfoCollection();
     }
 
@@ -64,7 +63,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Runebooks.Add(ip.GetChild() as RunebookInfo);
     }
   }

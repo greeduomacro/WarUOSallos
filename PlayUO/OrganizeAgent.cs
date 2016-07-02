@@ -57,7 +57,6 @@ namespace PlayUO
 
     public OrganizeAgent()
     {
-      base.\u002Ector();
       this.TemplateSet = false;
       this.TargetContainer = new ItemRef(0);
       this.BlackPearlPos = new Point(0, 0);

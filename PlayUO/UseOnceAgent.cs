@@ -11,11 +11,11 @@ namespace PlayUO
 {
   public class UseOnceAgent : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("useOnce", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ ItemRef.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("useOnce", Construct, ItemRef.TypeCode);
     private ItemRefCollection m_Items;
     private int m_Index;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -61,7 +61,6 @@ namespace PlayUO
 
     public UseOnceAgent()
     {
-      base.\u002Ector();
       this.m_Items = new ItemRefCollection();
     }
 
@@ -119,7 +118,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Items.Add(ip.GetChild() as ItemRef);
     }
   }

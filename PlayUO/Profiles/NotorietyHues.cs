@@ -10,10 +10,10 @@ namespace PlayUO.Profiles
 {
   public class NotorietyHues : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("notoHues", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("notoHues", Construct);
     private int[] m_Hues;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -133,7 +133,6 @@ namespace PlayUO.Profiles
 
     public NotorietyHues()
     {
-      base.\u002Ector();
       this.m_Hues = new int[7]
       {
         89,

@@ -22,7 +22,6 @@ namespace PlayUO.Profiles
 
     public VolumeData()
     {
-      base.\u002Ector();
       this.m_Volume = new Volume();
     }
 

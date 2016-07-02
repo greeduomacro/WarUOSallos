@@ -44,7 +44,6 @@ namespace PlayUO
 
     public MacroConfig()
     {
-      base.\u002Ector();
       this.macroSets = new MacroSetCollection();
     }
 

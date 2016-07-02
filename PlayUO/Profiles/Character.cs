@@ -10,11 +10,11 @@ namespace PlayUO.Profiles
 {
   public class Character : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("character", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("character", Construct);
     private int m_Serial;
     private string m_Name;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -54,12 +54,10 @@ namespace PlayUO.Profiles
 
     protected Character()
     {
-      base.\u002Ector();
     }
 
     public Character(Mobile mob)
     {
-      base.\u002Ector();
       if (mob == null)
         return;
       this.m_Name = mob.Name;

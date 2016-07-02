@@ -10,11 +10,11 @@ namespace PlayUO
 {
   public class ActionData : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("action", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("action", Construct);
     private string command;
     private string param;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -48,12 +48,10 @@ namespace PlayUO
 
     public ActionData()
     {
-      base.\u002Ector();
     }
 
     public ActionData(string command, string param)
     {
-      base.\u002Ector();
       this.command = command;
       this.param = param;
     }

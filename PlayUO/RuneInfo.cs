@@ -11,12 +11,12 @@ namespace PlayUO
 {
   public class RuneInfo : PersistableObject, IEquatable<RuneInfo>
   {
-    public static readonly PersistableType TypeCode = new PersistableType("rune", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("rune", Construct);
     private string m_Name;
     private Point3D m_Point;
     private int m_Facet;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -50,12 +50,10 @@ namespace PlayUO
 
     private RuneInfo()
     {
-      base.\u002Ector();
     }
 
     public RuneInfo(string name, Point3D p, int f)
     {
-      base.\u002Ector();
       this.m_Name = name;
       this.m_Point = p;
       this.m_Facet = f;

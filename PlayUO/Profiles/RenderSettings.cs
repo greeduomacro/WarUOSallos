@@ -105,7 +105,6 @@ namespace PlayUO.Profiles
 
     private RenderSettings(bool isLoading)
     {
-      base.\u002Ector();
       if (isLoading)
         return;
       this._terrainQuality = 1;

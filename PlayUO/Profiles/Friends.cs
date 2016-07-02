@@ -47,7 +47,6 @@ namespace PlayUO.Profiles
 
     public Friends()
     {
-      base.\u002Ector();
       this.m_Characters = new CharacterCollection();
     }
 
