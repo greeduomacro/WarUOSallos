@@ -1,0 +1,27 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: PlayUO.PAttackRequest
+// Assembly: Ultima.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6cc7e8bd89c5c6bf
+// MVID: 0CAC2BC7-B53A-42C2-916C-A40DD9E7563D
+// Assembly location: C:\Program Files (x86)\Electronic Arts\Ultima Online Classic\Ultima.Client.exe
+
+namespace PlayUO
+{
+  internal class PAttackRequest : Packet
+  {
+    public PAttackRequest(Mobile Target)
+      : this(Target.Serial)
+    {
+    }
+
+    public PAttackRequest(MobileCell Target)
+      : this(Target.m_Mobile.Serial)
+    {
+    }
+
+    protected PAttackRequest(int Serial)
+      : base((byte) 5, 5)
+    {
+      this.m_Stream.Write(Serial);
+    }
+  }
+}
