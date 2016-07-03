@@ -270,15 +270,15 @@ namespace PlayUO
     }
 
     [Obsolete("etc", false)]
-    public static unsafe short GetTexture(int landId)
+    public static unsafe ushort GetTexture(int landId)
     {
-      return (short) ((LandData) (IntPtr) Map.GetLandDataPointer(landId)).TextureId;
+      return GetLandDataPointer(landId)->TextureId;
     }
 
     [Obsolete("etc", false)]
     private static unsafe LandData* GetLandDataPointer(int landId)
     {
-      return Map.GetLandDataPointer((LandId) (int) (ushort) landId);
+      return GetLandDataPointer(landId);
     }
 
     public static unsafe LandData* GetLandDataPointer(LandId landId)
@@ -289,18 +289,18 @@ namespace PlayUO
     [Obsolete("etc", false)]
     public static unsafe ItemData* GetItemDataPointer(int itemId)
     {
-      return Map.GetItemDataPointer((ItemId) (int) (ushort) itemId);
+      return Map.GetItemDataPointer(itemId);
     }
 
     public static unsafe ItemData* GetItemDataPointer(ItemId itemId)
     {
-      return Map.tileData.GetItemDataPointer(itemId);
+      return tileData.GetItemDataPointer(itemId);
     }
 
     [Obsolete("etc", false)]
     public static unsafe TileFlags GetLandFlags(int landId)
     {
-      return new TileFlags(((LandData) (IntPtr) Map.GetLandDataPointer(landId)).Flags);
+      return new TileFlags(GetLandDataPointer(landId)->Flags);
     }
 
     [Obsolete("etc", false)]
@@ -602,24 +602,24 @@ namespace PlayUO
           {
             flag2 = true;
             StaticItem staticItem = (StaticItem) cell;
-            ItemData* itemDataPointer = staticItem.ItemDataPointer;
-            TileFlag tileFlag = (TileFlag) itemDataPointer->Flags;
+            var itemDataPointer = staticItem.ItemDataPointer;
+            TileFlag tileFlag = itemDataPointer->Flags;
             int num12 = (int) itemDataPointer->Height;
-            if ((tileFlag & 1024L) != 0L)
+            if ((tileFlag & (TileFlag) 1024L) != 0L)
               num12 /= 2;
-            if ((int) staticItem.m_Z <= point3D2.Z && (int) staticItem.m_Z + num12 >= point3D2.Z && (tileFlag & 12288L) != 0L && (point3D2.X != point3D1.X || point3D2.Y != point3D1.Y || ((int) staticItem.m_Z > point3D1.Z || (int) staticItem.m_Z + num12 < point3D1.Z)))
+            if ((int) staticItem.m_Z <= point3D2.Z && (int) staticItem.m_Z + num12 >= point3D2.Z && (tileFlag & (TileFlag) 12288L) != 0L && (point3D2.X != point3D1.X || point3D2.Y != point3D1.Y || ((int) staticItem.m_Z > point3D1.Z || (int) staticItem.m_Z + num12 < point3D1.Z)))
               return false;
           }
           else if (cell is DynamicItem)
           {
             flag2 = true;
             DynamicItem dynamicItem = (DynamicItem) cell;
-            ItemData* itemDataPointer = Map.GetItemDataPointer(dynamicItem.ItemId);
+            var itemDataPointer = Map.GetItemDataPointer(dynamicItem.ItemId);
             TileFlag tileFlag = (TileFlag) itemDataPointer->Flags;
             int num12 = (int) itemDataPointer->Height;
-            if ((tileFlag & 1024L) != 0L)
+            if ((tileFlag & (TileFlag) 1024L) != 0L)
               num12 /= 2;
-            if ((int) dynamicItem.m_Z <= point3D2.Z && (int) dynamicItem.m_Z + num12 >= point3D2.Z && (tileFlag & 12288L) != 0L && (point3D2.X != point3D1.X || point3D2.Y != point3D1.Y || ((int) dynamicItem.m_Z > point3D1.Z || (int) dynamicItem.m_Z + num12 < point3D1.Z)))
+            if ((int) dynamicItem.m_Z <= point3D2.Z && (int) dynamicItem.m_Z + num12 >= point3D2.Z && (tileFlag & (TileFlag) 12288L) != 0L && (point3D2.X != point3D1.X || point3D2.Y != point3D1.Y || ((int) dynamicItem.m_Z > point3D1.Z || (int) dynamicItem.m_Z + num12 < point3D1.Z)))
               return false;
           }
         }
@@ -717,7 +717,7 @@ namespace PlayUO
     {
       if (Name.IndexOf('%') == -1)
         return Name;
-      Match match = Regex.Match(Name, "(?<1>[^%]*)%(?<2>[^%/]*)(?<3>/[^%]*)?%");
+      Match match = Regex.Match(Name, "(?<group1>[^%]*)%(?<group2>[^%/]*)(?<group3>/[^%]*)?%");
       if (Amount == 1)
         return match.Groups[1].Value + (match.Groups[3].Value.Length > 0 ? match.Groups[3].Value.Substring(1) : match.Groups[3].Value);
       if (match.Groups[2].Success)
@@ -742,12 +742,12 @@ namespace PlayUO
 
     public static unsafe string GetItemName(ItemId itemId)
     {
-      return ((ItemData) (IntPtr) Map.GetItemDataPointer(itemId)).get_Name();
+      return GetItemDataPointer(itemId)->Name;
     }
 
     public static unsafe string GetLandName(LandId landId)
     {
-      return ((LandData) (IntPtr) Map.GetLandDataPointer(landId)).get_Name();
+        return GetLandDataPointer(landId)->Name;
     }
 
     [Obsolete("don't use me", false)]
