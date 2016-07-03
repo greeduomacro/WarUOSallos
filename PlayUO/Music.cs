@@ -45,7 +45,7 @@ namespace PlayUO
     {
       get
       {
-        return Music.m_AudioDecoder.get_Duration();
+        return Music.m_AudioDecoder.Duration;
       }
     }
 
@@ -101,8 +101,7 @@ namespace PlayUO
           bool flag1;
           do
           {
-            do
-              ;
+              do { }
             while (!Music.IsDisposed && !Music.m_PlayEvent.WaitOne(1));
             if (!Music.IsDisposed)
             {
@@ -115,14 +114,12 @@ namespace PlayUO
               flag1 = false;
               while (true)
               {
-                do
-                  ;
                 while (!Music.IsDisposed && !Music.Stopped && !Music.m_PlayEvent.WaitOne(1));
                 if (!Music.IsDisposed && !Music.Stopped)
                 {
                   if (num1 == Music.m_PlayCounter)
                   {
-                    while (Music.m_SourceVoice.get_State().BuffersQueued == Music.m_AudioBuffers.Length && !Music.IsDisposed && !Music.Stopped)
+                    while (Music.m_SourceVoice.State.BuffersQueued == Music.m_AudioBuffers.Length && !Music.IsDisposed && !Music.Stopped)
                       Music.m_BufferEndEvent.WaitOne(1);
                     if (!Music.IsDisposed && !Music.Stopped)
                     {
@@ -135,7 +132,7 @@ namespace PlayUO
                           {
                             if ((IntPtr) Music.m_MemoryBuffers[index].Pointer != IntPtr.Zero)
                               Utilities.FreeMemory((IntPtr) Music.m_MemoryBuffers[index].Pointer);
-                            Music.m_MemoryBuffers[index].Pointer = (__Null) Utilities.AllocateMemory((int) current.Size, 16);
+                            Music.m_MemoryBuffers[index].Pointer = Utilities.AllocateMemory((int) current.Size, 16);
                             Music.m_MemoryBuffers[index].Size = current.Size;
                           }
                           Utilities.CopyMemory((IntPtr) Music.m_MemoryBuffers[index].Pointer, (IntPtr) current.Pointer, (int) current.Size);
@@ -217,7 +214,7 @@ label_25:;
       for (int index = 0; index < Music.m_AudioBuffers.Length; ++index)
       {
         Utilities.FreeMemory((IntPtr) Music.m_MemoryBuffers[index].Pointer);
-        Music.m_MemoryBuffers[index].Pointer = (__Null) IntPtr.Zero;
+        Music.m_MemoryBuffers[index].Pointer = IntPtr.Zero;
       }
     }
 
@@ -234,7 +231,7 @@ label_25:;
       }
       if (Music.m_AudioDecoder != null)
       {
-        ((Component) Music.m_AudioDecoder).Dispose();
+        (Music.m_AudioDecoder).Dispose();
         Music.m_AudioDecoder = (AudioDecoder) null;
       }
       ((Voice) Music.m_MasteringVoice).DestroyVoice();
@@ -275,12 +272,12 @@ label_25:;
       if (!Music.Stopped)
         Music.Stop();
       Music.m_FileName = fileName;
-      Music.m_FileStream = new NativeFileStream(path, (NativeFileMode) 3, (NativeFileAccess) int.MinValue, (NativeFileShare) 1);
+      Music.m_FileStream = new NativeFileStream(path, (NativeFileMode) 3,  0, (NativeFileShare) 1);
       Music.m_AudioDecoder.SetSourceStream((Stream) Music.m_FileStream);
       if (Music.m_SourceVoice == null)
       {
-        Music.m_SourceVoice = new SourceVoice(Music.m_XAudio2, Music.m_AudioDecoder.get_WaveFormat());
-        Music.m_SourceVoice.add_BufferEnd(new System.Action<IntPtr>(Music.SourceVoice_BufferEnd));
+        Music.m_SourceVoice = new SourceVoice(Music.m_XAudio2, Music.m_AudioDecoder.WaveFormat);
+        Music.m_SourceVoice.BufferEnd += (new System.Action<IntPtr>(Music.SourceVoice_BufferEnd));
       }
       Music.m_SourceVoice.Start();
       Music.m_AudioBuffers = new AudioBuffer[3];
@@ -288,8 +285,8 @@ label_25:;
       for (int index = 0; index < Music.m_AudioBuffers.Length; ++index)
       {
         Music.m_AudioBuffers[index] = new AudioBuffer();
-        Music.m_MemoryBuffers[index].Size = (__Null) 32768;
-        Music.m_MemoryBuffers[index].Pointer = (__Null) Utilities.AllocateMemory((int) Music.m_MemoryBuffers[index].Size, 16);
+        Music.m_MemoryBuffers[index].Size =  32768;
+        Music.m_MemoryBuffers[index].Pointer = Utilities.AllocateMemory((int) Music.m_MemoryBuffers[index].Size, 16);
       }
       PlayUO.Volume volume = Preferences.Current.Music.Volume;
       if (volume != null && volume.Mute)

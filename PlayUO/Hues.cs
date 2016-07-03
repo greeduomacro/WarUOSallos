@@ -10,6 +10,8 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using System;
 using System.IO;
+using Microsoft.DirectX;
+using SharpDX.Mathematics.Interop;
 
 namespace PlayUO
 {
@@ -152,22 +154,22 @@ namespace PlayUO
               hueData.colors[32 + index] = (ushort) *numPtr2++;
             // ISSUE: explicit reference operation
             // ISSUE: variable of a reference type
-            HueData& local1 = @hueData;
+            HueData local1 = hueData;
             short* numPtr3 = numPtr2;
-            IntPtr num4 = new IntPtr(2);
-            short* numPtr4 = (short*) ((IntPtr) numPtr3 + num4);
+            short num4 = 2;
+            short* numPtr4 = num4 + numPtr3;
             int num5 = (int) *numPtr3;
             // ISSUE: explicit reference operation
-            (^local1).tableStart = (short) num5;
+            local1.tableStart = (short) num5;
             // ISSUE: explicit reference operation
             // ISSUE: variable of a reference type
-            HueData& local2 = @hueData;
+            HueData local2 = hueData;
             short* numPtr5 = numPtr4;
-            IntPtr num6 = new IntPtr(2);
-            short* numPtr6 = (short*) ((IntPtr) numPtr5 + num6);
+            short num6 =  2;
+            short* numPtr6 = numPtr5 + num6;
             int num7 = (int) *numPtr5;
             // ISSUE: explicit reference operation
-            (^local2).tableEnd = (short) num7;
+            local2.tableEnd = (short) num7;
             Hues.m_HueData[num1++] = hueData;
             numPtr2 = numPtr6 + 10;
           }
@@ -182,31 +184,31 @@ namespace PlayUO
       fixed (byte* numPtr1 = buffer2)
       {
         IntPtr num1 = new IntPtr(4);
-        int* numPtr2 = (int*) ((IntPtr) numPtr1 + num1);
+        int* numPtr2 = (int*) ( numPtr1 + *(int*)num1);
         int num2 = *(int*) numPtr1;
         int num3 = 0;
         while (num3++ < num2)
         {
           int* numPtr3 = numPtr2;
           IntPtr num4 = new IntPtr(4);
-          int* numPtr4 = (int*) ((IntPtr) numPtr3 + num4);
+          int* numPtr4 = (int*) ((IntPtr) numPtr3 + *(int*)num4);
           if (*numPtr3 == 32)
           {
             int* numPtr5 = numPtr4;
             IntPtr num5 = new IntPtr(4);
-            int* numPtr6 = (int*) ((IntPtr) numPtr5 + num5);
+            int* numPtr6 = (int*) ((IntPtr) numPtr5 + *(int*)num5);
             int num6 = *numPtr5;
             int* numPtr7 = numPtr6;
             IntPtr num7 = new IntPtr(4);
-            int* numPtr8 = (int*) ((IntPtr) numPtr7 + num7);
+            int* numPtr8 = (int*) ((IntPtr) numPtr7 + *(int*)num7);
             int num8 = *numPtr7;
             int* numPtr9 = numPtr8;
             IntPtr num9 = new IntPtr(4);
-            int* numPtr10 = (int*) ((IntPtr) numPtr9 + num9);
+            int* numPtr10 = (int*) ((IntPtr) numPtr9 + *(int*)num9);
             int num10 = *numPtr9;
             int* numPtr11 = numPtr10;
             IntPtr num11 = new IntPtr(4);
-            numPtr2 = (int*) ((IntPtr) numPtr11 + num11);
+            numPtr2 = (int*) ((IntPtr) numPtr11 + *(int*)num11);
             int num12 = *numPtr11;
             short* numPtr12 = (short*) (numPtr1 + num8 + 4);
             for (int index1 = 0; index1 < 8; ++index1)
@@ -217,22 +219,22 @@ namespace PlayUO
                 hueData.colors[32 + index2] = (ushort) *numPtr12++;
               // ISSUE: explicit reference operation
               // ISSUE: variable of a reference type
-              HueData& local1 = @hueData;
+              HueData local1 = hueData;
               short* numPtr13 = numPtr12;
-              IntPtr num13 = new IntPtr(2);
-              short* numPtr14 = (short*) ((IntPtr) numPtr13 + num13);
+              short num13 = 2;
+              short* numPtr14 = numPtr13 + num13;
               int num14 = (int) *numPtr13;
               // ISSUE: explicit reference operation
-              (^local1).tableStart = (short) num14;
+              local1.tableStart = (short) num14;
               // ISSUE: explicit reference operation
               // ISSUE: variable of a reference type
-              HueData& local2 = @hueData;
+              HueData local2 = hueData;
               short* numPtr15 = numPtr14;
-              IntPtr num15 = new IntPtr(2);
-              short* numPtr16 = (short*) ((IntPtr) numPtr15 + num15);
-              int num16 = (int) *numPtr15;
+              short num15 = 2;
+              short* numPtr16 = numPtr15 + num15;
+              int num16 = *numPtr15;
               // ISSUE: explicit reference operation
-              (^local2).tableEnd = (short) num16;
+              local2.tableEnd = (short) num16;
               Hues.m_HueData[(num6 << 3) + index1] = hueData;
               numPtr12 = numPtr16 + 10;
             }
@@ -665,7 +667,7 @@ namespace PlayUO
       private void RenderCallback()
       {
         // ISSUE: explicit reference operation
-        Engine.m_Device.SetPixelShaderConstant(0, ((Vector4) @this._colorData).ToArray());
+          Engine.m_Device.SetPixelShaderConstant(0, new[] { _colorData.W, _colorData.X, _colorData.Y, _colorData.Z });
       }
 
       public Frames GetAnimation(int RealID)
@@ -1040,7 +1042,7 @@ namespace PlayUO
       private void RenderCallback()
       {
         // ISSUE: explicit reference operation
-        Engine.m_Device.SetPixelShaderConstant(1, ((Vector4) @this._offset).ToArray());
+          Engine.m_Device.SetPixelShaderConstant(1, new float[] { _offset.W, _offset.X, _offset.Y, _offset.Z });
       }
 
       public Frames GetAnimation(int RealID)
@@ -1271,7 +1273,7 @@ namespace PlayUO
       private void RenderCallback()
       {
         // ISSUE: explicit reference operation
-        Engine.m_Device.SetPixelShaderConstant(1, ((Vector4) @this._offset).ToArray());
+          Engine.m_Device.SetPixelShaderConstant(1, new float[]{ _offset.W, _offset.X, _offset.Y, _offset.Z});
       }
 
       public override string ToString()

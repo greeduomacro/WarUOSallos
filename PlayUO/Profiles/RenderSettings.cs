@@ -10,7 +10,7 @@ namespace PlayUO.Profiles
 {
   public class RenderSettings : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("renderSettings", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("renderSettings", Construct);
     private int _terrainQuality;
     private int _smoothingMode;
     private bool _smoothCharacters;
@@ -18,7 +18,7 @@ namespace PlayUO.Profiles
     private bool _itemShadows;
     private bool _characterShadows;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

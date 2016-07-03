@@ -10,7 +10,7 @@ namespace PlayUO.Profiles
 {
   public class Preferences : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("preferences", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[10]{ FootstepData.TypeCode, SoundData.TypeCode, MusicData.TypeCode, SpeechHues.TypeCode, NotorietyHues.TypeCode, ScreenLayout.TypeCode, Options.TypeCode, ScavengerAgent.TypeCode, RenderSettings.TypeCode, RestockAgent.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("preferences", Construct, new PersistableType[10]{ FootstepData.TypeCode, SoundData.TypeCode, MusicData.TypeCode, SpeechHues.TypeCode, NotorietyHues.TypeCode, ScreenLayout.TypeCode, Options.TypeCode, ScavengerAgent.TypeCode, RenderSettings.TypeCode, RestockAgent.TypeCode });
     private FootstepData m_Footsteps;
     private SoundData m_Sound;
     private MusicData m_Music;
@@ -21,7 +21,7 @@ namespace PlayUO.Profiles
     private ScreenLayout m_Layout;
     private RenderSettings _renderSettings;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -184,7 +184,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
       {
         object obj = (object) ip.GetChild();
         if (obj is FootstepData)

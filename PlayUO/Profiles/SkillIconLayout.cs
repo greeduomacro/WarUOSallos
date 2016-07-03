@@ -10,10 +10,10 @@ namespace PlayUO.Profiles
 {
   public class SkillIconLayout : GumpLayout
   {
-    public static readonly PersistableType TypeCode = new PersistableType("skillIcon", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("skillIcon", Construct);
     private int m_SkillID;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

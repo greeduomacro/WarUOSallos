@@ -10,10 +10,10 @@ namespace PlayUO
 {
   public class MacroConfig : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("macroConfig", (ConstructCallback) null, new PersistableType[1]{ MacroSet.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("macroConfig", (ConstructCallback) null, MacroSet.TypeCode);
     private MacroSetCollection macroSets;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -55,7 +55,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.macroSets.Add(ip.GetChild() as MacroSet);
     }
   }

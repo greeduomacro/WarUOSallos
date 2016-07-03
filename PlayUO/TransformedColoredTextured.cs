@@ -8,7 +8,6 @@ using SharpDX;
 using SharpDX.Direct3D9;
 using System.Runtime.InteropServices;
 using Microsoft.DirectX;
-using Vector4 = SharpDX.Vector4;
 
 namespace PlayUO
 {
