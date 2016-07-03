@@ -109,7 +109,7 @@ namespace PlayUO
     {
       get
       {
-        return (this.TileFlags & 1024L) != 0L;
+        return (this.TileFlags & (TileFlag) 1024L) != 0L;
       }
     }
 

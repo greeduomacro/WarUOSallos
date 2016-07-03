@@ -236,7 +236,7 @@ namespace PlayUO
       get
       {
         int num = (int) this.itemId;
-        if ((this.TileFlags & 536870912L) != 0L || num == 1682 || (num == 2118 || num == 2163))
+        if ((this.TileFlags & (TileFlag) 536870912L) != 0L || num == 1682 || (num == 2118 || num == 2163))
           return true;
         if (num >= 1781)
           return num <= 1782;
@@ -520,7 +520,7 @@ namespace PlayUO
     {
       get
       {
-        return (this.TileFlags & 4194304L) != 0L;
+        return (this.TileFlags & (TileFlag) 4194304L) != 0L;
       }
     }
 
@@ -528,7 +528,7 @@ namespace PlayUO
     {
       get
       {
-        return (this.TileFlags & 2097152L) != 0L;
+        return (this.TileFlags & (TileFlag) 2097152L) != 0L;
       }
     }
 
@@ -536,7 +536,7 @@ namespace PlayUO
     {
       get
       {
-        return (this.TileFlags & 2048L) != 0L;
+        return (this.TileFlags & (TileFlag) 2048L) != 0L;
       }
     }
 

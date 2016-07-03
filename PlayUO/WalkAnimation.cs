@@ -226,15 +226,15 @@ namespace PlayUO
       double num = this.m_Sync.Normalized;
       if (!Options.Current.SmoothWalk && num < 1.0)
       {
-        switch (this.m_Frames)
+        switch ((int)m_Frames)
         {
-          case 1f:
+          case 1:
             num = 0.0;
             break;
-          case 2f:
+          case 2:
             num = num < 0.5 ? 0.49999 : 0.99999;
             break;
-          case 4f:
+          case 4:
             num = num >= 0.25 ? (num >= 0.5 ? (num >= 0.75 ? 0.99999 : 0.74999) : 0.49999) : 0.24999;
             break;
         }

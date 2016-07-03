@@ -132,23 +132,25 @@ namespace PlayUO
             CustomMultiEntry.m_InflateBuffer = new byte[length1];
           fixed (byte* numPtr3 = CustomMultiEntry.m_InflateBuffer)
           {
+              IntPtr ptr = (IntPtr)numPtr3;
+              var localPtr = (byte*)ptr;
             byte[] numArray = new byte[length2];
             for (int index2 = 0; index2 < numArray.Length; ++index2)
               numArray[index2] = *numPtr2++;
             ZLib.Decompress(CustomMultiEntry.m_InflateBuffer, ref length1, numArray, numArray.Length);
-            byte* numPtr4 = numPtr3 + length1;
+            byte* numPtr4 = localPtr + length1;
             switch (num4)
             {
               case 0:
-                while (numPtr3 < numPtr4)
+                while (localPtr < numPtr4)
                 {
                   MultiItem multiItem = new MultiItem();
                   multiItem.Flags = 1;
-                  multiItem.ItemID = (short) ((int) numPtr3[0] << 8 | (int) numPtr3[1]);
-                  multiItem.X = (short) (sbyte) numPtr3[2];
-                  multiItem.Y = (short) (sbyte) numPtr3[3];
-                  multiItem.Z = (short) (sbyte) numPtr3[4];
-                  numPtr3 += 5;
+                  multiItem.ItemID = (short)(localPtr[0] << 8 | localPtr[1]);
+                  multiItem.X = (short) localPtr[2];
+                  multiItem.Y = (short) localPtr[3];
+                  multiItem.Z = (short)  localPtr[4];
+                  localPtr += 5;
                   if ((int) multiItem.ItemID != 0)
                     list.Add((object) multiItem);
                 }
@@ -177,15 +179,15 @@ namespace PlayUO
                     num6 = 67;
                     break;
                 }
-                while (numPtr3 < numPtr4)
+                while (localPtr < numPtr4)
                 {
                   MultiItem multiItem = new MultiItem();
                   multiItem.Flags = 1;
-                  multiItem.ItemID = (short) ((int) numPtr3[0] << 8 | (int) numPtr3[1]);
-                  multiItem.X = (short) (sbyte) numPtr3[2];
-                  multiItem.Y = (short) (sbyte) numPtr3[3];
+                  multiItem.ItemID = (short) ((int) localPtr[0] << 8 | (int) localPtr[1]);
+                  multiItem.X = (short) (sbyte) localPtr[2];
+                  multiItem.Y = (short) (sbyte) localPtr[3];
                   multiItem.Z = (short) (sbyte) num6;
-                  numPtr3 += 4;
+                  localPtr += 4;
                   if ((int) multiItem.ItemID != 0)
                     list.Add((object) multiItem);
                 }
@@ -236,11 +238,11 @@ namespace PlayUO
                   num10 = num1;
                 }
                 int num11 = 0;
-                while (numPtr3 < numPtr4)
+                while (localPtr < numPtr4)
                 {
-                  short num12 = (short) ((int) numPtr3[0] << 8 | (int) numPtr3[1]);
+                  short num12 = (short) ((int) localPtr[0] << 8 | (int) localPtr[1]);
                   ++num11;
-                  numPtr3 += 2;
+                  localPtr += 2;
                   if ((int) num12 != 0)
                     list.Add((object) new MultiItem()
                     {

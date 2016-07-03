@@ -267,7 +267,7 @@ namespace PlayUO
                 for (int index6 = 0; index6 < huedTileArray[index4][index3].Length; ++index6)
                 {
                   HuedTile huedTile = huedTileArray[index4][index3][index6];
-                  int num10 = 16384 + huedTile.itemId;
+                  int num10 = 16384 + (int)huedTile.itemId;
                   switch (num10)
                   {
                     case 16385:

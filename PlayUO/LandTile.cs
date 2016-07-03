@@ -55,7 +55,7 @@ namespace PlayUO
     {
       get
       {
-        return ((LandData) (IntPtr) this.LandDataPointer).get_Flags();
+        return LandDataPointer->Flags;
       }
     }
 
@@ -71,7 +71,7 @@ namespace PlayUO
     {
       get
       {
-        return (this.LandFlags & 64L) != 0L;
+        return (this.LandFlags & (TileFlag) 64L) != 0L;
       }
     }
 

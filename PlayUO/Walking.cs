@@ -307,9 +307,9 @@ namespace PlayUO
           {
             ItemData* itemDataPointer = Map.GetItemDataPointer(obj.ItemId);
             TileFlag tileFlag = (TileFlag) itemDataPointer->Flags;
-            if ((tileFlag & 512L) != 0L)
+            if ((tileFlag & (TileFlag) 512L) != 0L)
             {
-              bool flag3 = (tileFlag & 1024L) != 0L;
+              bool flag3 = (tileFlag & (TileFlag) 1024L) != 0L;
               byte num2 = (byte) itemDataPointer->Height;
               int num3 = (int) obj.Z;
               int num4 = num3 + (flag3 ? (int) num2 / 2 : (int) num2);

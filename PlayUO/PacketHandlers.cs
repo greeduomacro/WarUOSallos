@@ -2391,7 +2391,7 @@ namespace PlayUO
       else
       {
         Item obj = World.FindItem(serial);
-        if (obj != null && obj.ItemId == 3852 && obj.IsChildOf((Agent) World.Player))
+        if (obj != null && (int)obj.ItemId == 3852 && obj.IsChildOf((Agent) World.Player))
           PacketHandlers.SetEvent(PacketHandlers.EventFlags.ConsumeHeal);
         World.Remove(obj);
       }

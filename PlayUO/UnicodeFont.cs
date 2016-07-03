@@ -387,6 +387,7 @@ namespace PlayUO
                 int num3 = num1 + character.m_xOffset;
                 fixed (byte* numPtr1 = character.m_Bits)
                 {
+                    IntPtr localPtr = (IntPtr)numPtr1;
                   byte* numPtr2 = buffer + ((num2 + 1 + character.m_yOffset) * width) + (num3 + 1 + character.m_xWidth - 1);
                   int num4 = 32 - character.m_xWidth;
                   int num5 = character.m_xWidth + 7 >> 3;
@@ -394,7 +395,7 @@ namespace PlayUO
                   int num7 = 0;
                   while (num7 < character.m_yHeight)
                   {
-                    uint num8 = *(uint*) numPtr1;
+                    uint num8 = *(uint*)localPtr;
                     uint num9 = (uint) (((int) num8 & (int) byte.MaxValue) << 24 | ((int) num8 & 65280) << 8 | (int) ((num8 & 16711680U) >> 8) | (int) (num8 >> 24) & (int) byte.MaxValue) >> num4;
                     byte* numPtr3 = numPtr2;
                     int index2 = num6;
@@ -455,7 +456,7 @@ namespace PlayUO
                     ++num7;
                     numPtr2 += width;
                     num6 += width;
-                    numPtr1 += num5;
+                    localPtr += num5;
                   }
                 }
                 num1 = num3 + character.m_xWidth;

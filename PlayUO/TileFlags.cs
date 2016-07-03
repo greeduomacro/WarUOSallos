@@ -42,15 +42,15 @@ namespace PlayUO
       {
         if (value)
         {
-          TileFlags& local = @this;
-          TileFlag tileFlag = (^local).value | flag;
-          (^local).value = tileFlag;
+          TileFlags local = this;
+          TileFlag tileFlag = local.value | flag;
+          local.value = tileFlag;
         }
         else
         {
-          TileFlags& local = @this;
-          TileFlag tileFlag = (^local).value & ~flag;
-          (^local).value = tileFlag;
+          TileFlags local = this;
+          TileFlag tileFlag = local.value & ~flag;
+          local.value = tileFlag;
         }
       }
     }

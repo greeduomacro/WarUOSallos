@@ -88,15 +88,16 @@ namespace PlayUO
           int num2 = fontImage.xDelta;
           fixed (byte* numPtr3 = fontImage.xyPixels)
           {
+              IntPtr localPtr = (IntPtr)numPtr3;
             int num3 = 0;
             while (num3 < yHeight)
             {
               int num4 = 0;
-              byte* numPtr4 = numPtr3;
+              byte* numPtr4 = (byte*)localPtr;
               for (; num4 < xWidth; ++num4)
                 *numPtr4++ = *numPtr2++;
               ++num3;
-              numPtr3 += num2;
+              localPtr += num2;
             }
           }
           this.m_Images[index] = fontImage;

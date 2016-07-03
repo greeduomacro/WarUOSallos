@@ -158,7 +158,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.HasChild
+      while (ip.HasChild)
         this.actions.Add(new Action(ip.GetChild() as ActionData));
     }
   }

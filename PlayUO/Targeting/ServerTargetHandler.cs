@@ -181,7 +181,7 @@ namespace PlayUO.Targeting
     {
       ItemData* itemDataPointer = Map.GetItemDataPointer((ItemId) (int) (ushort) staticTarget.RealID);
       int z = staticTarget.Z;
-      if ((itemDataPointer->Flags & 512L) != 0L)
+      if ((itemDataPointer->Flags & (TileFlag) 512L) != 0L)
         z += (int) itemDataPointer->Height;
       this.Dispatch(1, 0, staticTarget.X, staticTarget.Y, z, staticTarget.RealID);
       return true;

@@ -221,6 +221,7 @@ namespace PlayUO
               num = 1;
               break;
           }
+         break;
         case WindowsButtonStyle.Flat:
           switch (this.m_State)
           {
@@ -237,6 +238,7 @@ namespace PlayUO
               this.CaptionDown = false;
               break;
           }
+              break;
       }
       if (this.m_Image == null)
         return;
