@@ -112,7 +112,7 @@ namespace PlayUO
       {
         fixed (byte* numPtr1 = this.data)
         {
-          short* numPtr2 = (short*) (numPtr1 + 8 + height * 2 - (m_Hue is Hues.ShadowHue ? 17 : 0) * 2);
+            short* numPtr2 = (short*)(numPtr1 + 8 + ((IntPtr)(height * 2)).ToInt64() - (m_Hue is Hues.ShadowHue ? new IntPtr(17) : IntPtr.Zero).ToInt64() * 2);
           short* numPtr3 = (short*) (numPtr1 + 6);
           int num1 = width;
           int num2 = height;
