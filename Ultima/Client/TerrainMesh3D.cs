@@ -118,7 +118,6 @@ namespace Ultima.Client
         }
         // ISSUE: fixed variable is out of scope
         // ISSUE: __unpin statement
-        __unpin(numPtr);
       }
     }
 
@@ -225,7 +224,7 @@ namespace Ultima.Client
       int* pInput = stackalloc int[16];
       float* numPtr1 = stackalloc float[this._meshProvider.Size];
       // ISSUE: untyped stack allocation
-      IntPtr num = __untypedstackalloc(checked (unchecked ((IntPtr) (uint) this._meshProvider.Size) * sizeof (Point3D)));
+      IntPtr num = new IntPtr(checked (unchecked ((uint) _meshProvider.Size) * sizeof (Point3D)));
       TileMatrix matrix = Map.GetMatrix(Engine.m_World);
       int* numPtr2 = pInput;
       for (int index1 = -1; index1 < 3; ++index1)

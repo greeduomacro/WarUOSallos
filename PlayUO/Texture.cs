@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace PlayUO
 {
@@ -184,7 +185,7 @@ namespace PlayUO
       }
     }
 
-    public Texture Surface
+    public SharpDX.Direct3D9.Texture Surface
     {
       get
       {
@@ -256,8 +257,8 @@ namespace PlayUO
         this.m_Surface = SharpDX.Direct3D9.Texture.FromMemory(Engine.m_Device, memoryStream.ToArray(), (Usage) 0, (Pool) 1);
         memoryStream.Close();
       }
-      SurfaceDescription levelDescription = this.m_Surface.GetLevelDescription(0);
-      this.m_FourBPP = levelDescription.Format.HasFlag(21);
+      SurfaceDescription levelDescription = m_Surface.GetLevelDescription(0);
+      this.m_FourBPP = levelDescription.Format.HasFlag(Format.A8R8G8B8);
       this._transparency = this.m_FourBPP ? TextureTransparency.Complex : TextureTransparency.Simple;
       this.m_TexWidth = (int) levelDescription.Width;
       this.m_TexHeight = (int) levelDescription.Height;
@@ -336,14 +337,14 @@ namespace PlayUO
       this.Height = Height;
       this.m_TexWidth = num1;
       this.m_TexHeight = num2;
-      this.m_FourBPP = fmt == 21;
+      this.m_FourBPP = fmt.HasFlag(Format.A8R8G8B8);
       this._minTu = 1f / (float) (this.m_TexWidth * 2);
       this._minTv = 1f / (float) (this.m_TexHeight * 2);
       this._maxTu = (float) (Width * 2 - 1) / (float) (this.m_TexWidth * 2);
       this._maxTv = (float) (Height * 2 - 1) / (float) (this.m_TexHeight * 2);
       this.m_fWidth = (float) Width;
       this.m_fHeight = (float) Height;
-      this.m_Surface = new Texture(Engine.m_Device, this.m_TexWidth, this.m_TexHeight, 1, usage, fmt, pool);
+      this.m_Surface = new SharpDX.Direct3D9.Texture(Engine.m_Device, this.m_TexWidth, this.m_TexHeight, 1, usage, fmt, pool);
       this.xMax = Width - 1;
       this.yMax = Height - 1;
       if (isReconstruct)
@@ -609,7 +610,7 @@ namespace PlayUO
         throw new ArgumentException("Position and size must be greater than or equal to zero.");
       if (x + width > bitmapData.Width || y + height > bitmapData.Height)
         throw new ArgumentException("Specified region must be contained entirely within the bitmap data bounds.");
-      return Texture.FromBitmapAux(bitmapData, x, y, width, height);
+      return FromBitmapAux(bitmapData, x, y, width, height);
     }
 
     private static unsafe Texture FromBitmapAux(BitmapData bitmapData, int x, int y, int width, int height)
@@ -619,8 +620,8 @@ namespace PlayUO
       int num = 0;
       while (num < height)
       {
-        int* numPtr1 = (int*) ((IntPtr) (void*) bitmapData.Scan0 + (IntPtr) y * bitmapData.Stride + (IntPtr) x * 4);
-        int* numPtr2 = (int*) ((IntPtr) lockData.pvSrc + (IntPtr) num * lockData.Pitch);
+        int* numPtr1 = (int*)(bitmapData.Scan0 + y * bitmapData.Stride +  x * 4);
+        int* numPtr2 = (int*)((IntPtr)lockData.pvSrc + num * lockData.Pitch);
         int* numPtr3 = numPtr1 + width;
         while (numPtr1 < numPtr3)
           *numPtr2++ = *numPtr1++;
@@ -642,41 +643,41 @@ namespace PlayUO
       this.m_Disposed = true;
       if (this.m_Surface != null)
         ((DisposeBase) this.m_Surface).Dispose();
-      this.m_Surface = (Texture) null;
+      this.m_Surface = null;
     }
 
-    protected Texture CoreGetSurface()
+    protected SharpDX.Direct3D9.Texture CoreGetSurface()
     {
       this.m_LastAccess = Engine.Ticks;
       if (this.m_Surface == null)
-        return (Texture) null;
-      if (((DisposeBase) this.m_Surface).get_IsDisposed())
-        return this.m_Surface = this.CoreReconstruct();
+        return  null;
+      if (((DisposeBase) this.m_Surface).IsDisposed)
+        return this.m_Surface = CoreReconstruct();
       return this.m_Surface;
     }
 
-    protected Texture CoreReconstruct()
+    protected SharpDX.Direct3D9.Texture CoreReconstruct()
     {
       if (this.m_Factory == null)
-        return (Texture) null;
+        return null;
       return this.m_Factory.Reconstruct(this.m_FactoryArgs).m_Surface;
     }
 
     public virtual unsafe LockData Lock(LockFlags flags)
     {
-      Texture surface = this.CoreGetSurface();
+        SharpDX.Direct3D9.Texture surface = this.CoreGetSurface();
       if (surface == null)
         return new LockData();
       LockFlags lockFlags = (LockFlags) 2048;
       if (flags == LockFlags.ReadOnly)
-        lockFlags = (LockFlags) (lockFlags | 16);
+        lockFlags = lockFlags | (LockFlags) 16;
       DataStream dataStream = (DataStream) null;
       int num = -1;
       do
       {
         try
         {
-          num = (int) surface.LockRectangle(0, lockFlags, ref dataStream).Pitch;
+          num = (int) surface.LockRectangle(0, (SharpDX.Direct3D9.LockFlags) lockFlags, out dataStream).Pitch;
         }
         catch
         {
@@ -685,7 +686,7 @@ namespace PlayUO
       while (dataStream == null);
       LockData lockData = new LockData();
       lockData.Pitch = num;
-      lockData.pvSrc = (void*) dataStream.get_DataPointer();
+      lockData.pvSrc = (void*) dataStream.DataPointer;
       lockData.Height = this.Height;
       lockData.Width = this.Width;
       this.m_LockStream = dataStream;
@@ -694,7 +695,7 @@ namespace PlayUO
 
     public void Unlock()
     {
-      Texture surface = this.CoreGetSurface();
+        SharpDX.Direct3D9.Texture surface = this.CoreGetSurface();
       if (surface == null)
         return;
       if (this.m_LockStream != null)

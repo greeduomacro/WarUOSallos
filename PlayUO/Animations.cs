@@ -214,7 +214,7 @@ namespace PlayUO
       return BodyType.Empty;
     }
 
-    public Frame GetFrame(IAnimationOwner owner, int BodyID, int ActionID, int Direction, int Frame, int xCenter, int yCenter, IHue h, ref int TextureX, ref int TextureY, bool preserveHue)
+    public Frame GetFrame(IAnimationOwner owner, int BodyID, int ActionID, int Direction, int frame, int xCenter, int yCenter, IHue h, ref int TextureX, ref int TextureY, bool preserveHue)
     {
       if (BodyID <= 0)
         return Frame.Empty;
@@ -252,20 +252,20 @@ namespace PlayUO
         if (flag)
         {
           num |= 1;
-          Frame = 0;
+          frame = 0;
         }
       }
       Frames frames = owner != null ? owner.GetOwnedFrames(h, num) : h.GetAnimation(num);
-      if (Frame >= frames.FrameCount || Frame < 0)
+      if (frame >= frames.FrameCount || frame < 0)
         return Frame.Empty;
-      Frame frame = frames.FrameList[Frame];
-      if (frame != null && frame.Image != null && !frame.Image.IsEmpty())
+      Frame framee = frames.FrameList[frame];
+      if (framee != null && framee.Image != null && !framee.Image.IsEmpty())
       {
-        TextureX = Direction <= 4 ? xCenter - frame.CenterX : xCenter + (frame.CenterX - frame.Image.Width);
-        TextureY = yCenter - frame.Image.Height - frame.CenterY;
+          TextureX = Direction <= 4 ? xCenter - framee.CenterX : xCenter + (framee.CenterX - framee.Image.Width);
+          TextureY = yCenter - framee.Image.Height - framee.CenterY;
+          framee.Image.Flip = Direction > 4;
       }
-      frame.Image.Flip = Direction > 4;
-      return frame;
+      return framee;
     }
 
     public bool IsValid(int bodyID, int action, int direction)
@@ -699,11 +699,11 @@ namespace PlayUO
                           switch (Animations.GetPixelType(ld, x, y))
                           {
                             case Animations.PixelType.Inner:
-                              ushort num13 = *(ushort*) ((IntPtr) ld.pvSrc + (IntPtr) (y * (ld.Pitch >> 1)) * 2 + (IntPtr) x * 2);
-                              *(int*) ((IntPtr) lockData.pvSrc + (IntPtr) (y * (lockData.Pitch >> 2)) * 4 + (IntPtr) x * 4) = Engine.C16232((int) num13) | -16777216;
+                              ushort num13 = *(ushort*) ( (int)ld.pvSrc + y * (ld.Pitch >> 1) * 2  +  x * 2);
+                              *(int*) ((IntPtr) lockData.pvSrc + y * (lockData.Pitch >> 2) * 4 +  x * 4) = Engine.C16232((int) num13) | -16777216;
                               break;
                             case Animations.PixelType.Outer:
-                              ushort num14 = *(ushort*) ((IntPtr) ld.pvSrc + (IntPtr) (y * (ld.Pitch >> 1)) * 2 + (IntPtr) x * 2);
+                              ushort num14 = *(ushort*) ((IntPtr) ld.pvSrc +  (y * (ld.Pitch >> 1)) * 2 +  x * 2);
                               int num15 = 0;
                               int num16 = 0;
                               int num17 = 0;
@@ -714,7 +714,7 @@ namespace PlayUO
                                 {
                                   if (Animations.GetPixelType(ld, x + index3, y + index2) == Animations.PixelType.Inner)
                                   {
-                                    ushort* numPtr12 = (ushort*) ((IntPtr) ld.pvSrc + (IntPtr) ((y + index2) * (ld.Pitch >> 1)) * 2 + (IntPtr) (x + index3) * 2);
+                                    ushort* numPtr12 = (ushort*) ((IntPtr) ld.pvSrc +  ((y + index2) * (ld.Pitch >> 1)) * 2 +  (x + index3) * 2);
                                     num15 += (int) *numPtr12 >> 10 & 31;
                                     num16 += (int) *numPtr12 >> 5 & 31;
                                     num17 += (int) *numPtr12 & 31;
@@ -732,10 +732,10 @@ namespace PlayUO
                                   num19 = 0;
                                 else if (num19 > (int) byte.MaxValue)
                                   num19 = (int) byte.MaxValue;
-                                *(int*) ((IntPtr) lockData.pvSrc + (IntPtr) (y * (lockData.Pitch >> 2)) * 4 + (IntPtr) x * 4) = num19 << 24 | Engine.Blend32(r << 16 | g << 8 | b, Engine.C16232((int) num14), (int) sbyte.MaxValue);
+                                *(int*) ((IntPtr) lockData.pvSrc +  (y * (lockData.Pitch >> 2)) * 4 + ( x * 4)) = num19 << 24 | Engine.Blend32(r << 16 | g << 8 | b, Engine.C16232((int) num14), (int) sbyte.MaxValue);
                                 break;
                               }
-                              *(int*) ((IntPtr) lockData.pvSrc + (IntPtr) (y * (lockData.Pitch >> 2)) * 4 + (IntPtr) x * 4) = -16777216 | Engine.C16232((int) num14);
+                              *(int*) ((IntPtr) lockData.pvSrc + (y * (lockData.Pitch >> 2)) * 4 + ( x * 4)) = -16777216 | Engine.C16232((int) num14);
                               break;
                           }
                         }
@@ -757,13 +757,13 @@ namespace PlayUO
 
     private static unsafe Animations.PixelType GetPixelType(LockData ld, int x, int y)
     {
-      if (x < 0 || x >= ld.Width || (y < 0 || y >= ld.Height) || ((int) *(ushort*) ((IntPtr) ld.pvSrc + (IntPtr) (y * (ld.Pitch >> 1)) * 2 + (IntPtr) x * 2) & 32768) == 0)
+      if (x < 0 || x >= ld.Width || (y < 0 || y >= ld.Height) || ((int) *(ushort*) ((IntPtr) ld.pvSrc + (y * (ld.Pitch >> 1)) * 2 +  x * 2) & 32768) == 0)
         return Animations.PixelType.None;
       for (int index1 = -1; index1 <= 1; ++index1)
       {
         for (int index2 = -1; index2 <= 1; ++index2)
         {
-          if ((index2 == 0 || index1 == 0) && (x + index2 < 0 || x + index2 >= ld.Width || (y + index1 < 0 || y + index1 >= ld.Height) || ((int) *(ushort*) ((IntPtr) ld.pvSrc + (IntPtr) ((y + index1) * (ld.Pitch >> 1)) * 2 + (IntPtr) (x + index2) * 2) & 32768) == 0))
+          if ((index2 == 0 || index1 == 0) && (x + index2 < 0 || x + index2 >= ld.Width || (y + index1 < 0 || y + index1 >= ld.Height) || ((int) *(ushort*) ((IntPtr) ld.pvSrc + ((y + index1) * (ld.Pitch >> 1)) * 2 +  (x + index2) * 2) & 32768) == 0))
             return Animations.PixelType.Outer;
         }
       }

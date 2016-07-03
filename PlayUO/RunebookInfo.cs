@@ -11,7 +11,7 @@ namespace PlayUO
 {
   public class RunebookInfo : ItemRef
   {
-    public new static readonly PersistableType TypeCode = new PersistableType("runebook", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ RuneInfo.TypeCode });
+    public new static readonly PersistableType TypeCode = new PersistableType("runebook", Construct, new PersistableType[1]{ RuneInfo.TypeCode });
     private RuneInfoCollection m_Runes;
 
     public override PersistableType TypeID

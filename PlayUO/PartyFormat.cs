@@ -25,7 +25,7 @@ namespace PlayUO
 
     protected override void OnDefault(CommandArgs args)
     {
-      switch (Party.State)
+        switch (Party.State)
       {
         case PartyState.Alone:
           Engine.AddTextMessage(string.Format("Note to self: {0}", (object) args.GetArgument(0)), Engine.DefaultFont, Hues.Load(946));

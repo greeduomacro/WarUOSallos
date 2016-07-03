@@ -16,9 +16,9 @@ namespace PlayUO
     public static readonly SpeechFormat Whisper = new SpeechFormat("Whisper: ", "; ", (string) null, (byte) 8, SpeechType.Whisper);
     public static readonly SpeechFormat Guild = new SpeechFormat("Guild: ", "\\ ", (string) null, (byte) 13, SpeechType.Guild);
     public static readonly SpeechFormat Alliance = new SpeechFormat("Alliance: ", "| ", (string) null, (byte) 14, SpeechType.Alliance);
-    public static readonly SpeechFormat Party = (SpeechFormat) new PartyFormat("Party: ", "/", (string) null, (byte) 0, SpeechType.Regular);
+    public static readonly SpeechFormat PartyFormat = (SpeechFormat) new PartyFormat("Party: ", "/", (string) null, (byte) 0, SpeechType.Regular);
     public static readonly SpeechFormat Regular = new SpeechFormat((string) null, (string) null, (string) null, (byte) 0, SpeechType.Regular);
-    public static readonly SpeechFormat[] Formats = new SpeechFormat[8]{ SpeechFormat.Client, SpeechFormat.Yell, SpeechFormat.Emote, SpeechFormat.Whisper, SpeechFormat.Guild, SpeechFormat.Alliance, SpeechFormat.Party, SpeechFormat.Regular };
+    public static readonly SpeechFormat[] Formats = new SpeechFormat[8] { SpeechFormat.Client, SpeechFormat.Yell, SpeechFormat.Emote, SpeechFormat.Whisper, SpeechFormat.Guild, SpeechFormat.Alliance, SpeechFormat.PartyFormat, SpeechFormat.Regular };
     protected string m_Prepend;
     protected string m_Prefix;
     protected string m_Format;

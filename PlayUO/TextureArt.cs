@@ -26,8 +26,9 @@ namespace PlayUO
         int index = 0;
         do
         {
-          this.m_Lookup[index] = *(int*) numPtr | ((int*) numPtr)[2] << 31;
-          (int*) numPtr += 3;
+            var localPtr = numPtr;
+            m_Lookup[index] = *(int*)localPtr | ((int*)localPtr)[2] << 31;
+            *(int*) localPtr += 3;
         }
         while (++index < 16384);
       }

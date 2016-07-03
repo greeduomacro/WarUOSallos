@@ -49,15 +49,15 @@ namespace PlayUO
               string[] strArray = str2.Split('\t');
               if (strArray.Length >= 2)
               {
-                int int32 = Convert.ToInt32(strArray[0]);
-                int num1 = Convert.ToInt32(strArray[1]);
+                int int32 = int.Parse(strArray[0]);
+                int num1 = int.Parse(strArray[1]);
                 int num2 = -1;
                 int num3 = -1;
                 int num4 = -1;
                 try
                 {
                   if (strArray.Length >= 3)
-                    num2 = Convert.ToInt32(strArray[2]);
+                      num2 = int.Parse(strArray[2]);
                 }
                 catch
                 {
@@ -65,7 +65,7 @@ namespace PlayUO
                 try
                 {
                   if (strArray.Length >= 4)
-                    num3 = Convert.ToInt32(strArray[3]);
+                      num3 = int.Parse(strArray[3]);
                 }
                 catch
                 {
@@ -73,7 +73,7 @@ namespace PlayUO
                 try
                 {
                   if (strArray.Length >= 5)
-                    num4 = Convert.ToInt32(strArray[4]);
+                      num4 = int.Parse(strArray[4]);
                 }
                 catch
                 {
