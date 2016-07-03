@@ -69,7 +69,7 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Runes.Add(ip.GetChild() as RuneInfo);
     }
   }

@@ -54,8 +54,8 @@ namespace PlayUO
       if (this.m_VertexBufferLength >= this.m_VertexBufferOffset + vertexCount)
       {
         if (this.m_Stream == null)
-          this.m_Stream = !unlock ? this.m_Buffer.Lock(this.m_VertexBufferOffset * this.m_SizePerVertex, (this.m_VertexBufferLength - this.m_VertexBufferOffset) * this.m_SizePerVertex, (LockFlags) 4096) : this.m_Buffer.Lock(this.m_VertexBufferOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex, (LockFlags) 4096);
-        this.m_Stream.WriteRange<byte>((M0[]) buffer, vertexOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex);
+          this.m_Stream = !unlock ? this.m_Buffer.Lock(this.m_VertexBufferOffset * this.m_SizePerVertex, (this.m_VertexBufferLength - this.m_VertexBufferOffset) * this.m_SizePerVertex, (SharpDX.Direct3D9.LockFlags) 4096) : this.m_Buffer.Lock(this.m_VertexBufferOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex, (SharpDX.Direct3D9.LockFlags) 4096);
+        this.m_Stream.WriteRange<byte>(buffer, vertexOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex);
         num = this.m_VertexBufferOffset;
         this.m_VertexBufferOffset += vertexCount;
         if (unlock)
@@ -65,8 +65,8 @@ namespace PlayUO
       {
         this.Unlock();
         if (this.m_Stream == null)
-          this.m_Stream = !unlock ? this.m_Buffer.Lock(0, this.m_VertexBufferLength * this.m_SizePerVertex, (LockFlags) 8192) : this.m_Buffer.Lock(0, vertexCount * this.m_SizePerVertex, (LockFlags) 8192);
-        this.m_Stream.WriteRange<byte>((M0[]) buffer, vertexOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex);
+          this.m_Stream = !unlock ? this.m_Buffer.Lock(0, this.m_VertexBufferLength * this.m_SizePerVertex, (SharpDX.Direct3D9.LockFlags) 8192) : this.m_Buffer.Lock(0, vertexCount * this.m_SizePerVertex, (SharpDX.Direct3D9.LockFlags) 8192);
+        this.m_Stream.WriteRange<byte>(buffer, vertexOffset * this.m_SizePerVertex, vertexCount * this.m_SizePerVertex);
         num = 0;
         this.m_VertexBufferOffset = vertexCount;
         if (unlock)

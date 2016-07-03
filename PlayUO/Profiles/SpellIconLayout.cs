@@ -10,10 +10,10 @@ namespace PlayUO.Profiles
 {
   public class SpellIconLayout : GumpLayout
   {
-    public static readonly PersistableType TypeCode = new PersistableType("spellIcon", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("spellIcon", Construct);
     private int m_SpellID;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

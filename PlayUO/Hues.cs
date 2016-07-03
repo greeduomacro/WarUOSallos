@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using Microsoft.DirectX;
 using SharpDX.Mathematics.Interop;
+using Vector4 = SharpDX.Vector4;
 
 namespace PlayUO
 {

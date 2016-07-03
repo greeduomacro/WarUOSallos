@@ -8,7 +8,7 @@ using Sallos;
 using System;
 using System.IO;
 using Ultima.Data;
-using Archive = Sallos.Archive;
+
 
 namespace PlayUO
 {
@@ -25,7 +25,7 @@ namespace PlayUO
     private int m_Width;
     private int m_Height;
     private readonly int fileIndex;
-    private readonly Archive archive;
+    private readonly Ultima.Data.Archive archive;
     private static TileList[][] m_Lists;
 
     public int BlockWidth
@@ -99,7 +99,7 @@ namespace PlayUO
       }
       this.m_InvalidLandBlock = new Tile[196];
       this.m_Blocks = new WeakReference[this.m_BlockWidth][];
-      this.archive = new Archive(Engine.FileManager.ResolveMUL("map" + (object) fileIndex + "LegacyMUL.uop"));
+      this.archive = new Ultima.Data.Archive(Engine.FileManager.ResolveMUL("map" + (object) fileIndex + "LegacyMUL.uop"));
     }
 
     public bool CheckLoaded(int x, int y)
@@ -114,7 +114,7 @@ namespace PlayUO
       string path2 = name + (object) fileIndex + ".mul";
       Stream stream = (Stream) null;
       if (!string.IsNullOrEmpty(Engine._ticket._contentArchive))
-        stream = Archives.Download(Path.Combine(Engine._ticket._contentArchive, path2));
+        stream = Sallos.Archives.Download(Path.Combine(Engine._ticket._contentArchive, path2));
       if (stream == null)
       {
         string path = Path.Combine(Engine.FileManager.FilePath, path2);
@@ -233,17 +233,17 @@ namespace PlayUO
       int num1 = x * this.m_BlockHeight + y;
       int num2 = num1 >> 12;
       int entry = num1 & 4095;
-      return (Tile[]) this.archive.Open<Tile[]>(string.Format("build/map{0}legacymul/{1:00000000}.dat", (object) this.fileIndex, (object) num2), (Func<Stream, M0>) (data =>
+      return (Tile[]) archive.Open<Tile[]>(string.Format("build/map{0}legacymul/{1:00000000}.dat", (object) this.fileIndex, (object) num2), data =>
       {
         Tile[] tileArray = new Tile[64];
         UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream) data;
         fixed (Tile* tilePtr = tileArray)
         {
           byte* positionPointer = unmanagedMemoryStream.PositionPointer;
-          UnsafeMethods.CopyMemory((void*) tilePtr, (void*) (positionPointer + ((IntPtr) entry * 196).ToInt64() + 4), 192);
+          UnsafeMethods.CopyMemory((void*) tilePtr, (void*) (positionPointer + ((IntPtr) (entry * 196)).ToInt64() + 4), 192);
         }
         return tileArray;
-      })) ?? new Tile[64];
+      }) ?? new Tile[64];
     }
 
     public void Dispose()

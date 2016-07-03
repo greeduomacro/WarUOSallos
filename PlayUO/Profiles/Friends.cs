@@ -10,10 +10,10 @@ namespace PlayUO.Profiles
 {
   public class Friends : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("friends", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ Character.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("friends", Construct, new PersistableType[1]{ Character.TypeCode });
     private CharacterCollection m_Characters;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -63,7 +63,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
         this.m_Characters.Add(ip.GetChild() as Character);
     }
   }

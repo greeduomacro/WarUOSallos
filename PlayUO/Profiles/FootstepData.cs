@@ -10,9 +10,9 @@ namespace PlayUO.Profiles
 {
   public class FootstepData : VolumeData
   {
-    public static readonly PersistableType TypeCode = new PersistableType("footstep", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("footstep", Construct);
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

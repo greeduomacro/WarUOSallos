@@ -18,7 +18,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using SharpDX.Mathematics.Interop;
 using Ultima.Data;
+using Color = SharpDX.Color;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace PlayUO
@@ -286,10 +288,12 @@ namespace PlayUO
     public static bool SetViewport(int x, int y, int w, int h)
     {
       Renderer.PushAll();
-      Viewport viewport = (Viewport) null;
-      viewport.MinDepth = (__Null) 0.0;
-      viewport.MaxDepth = (__Null) 1.0;
-      int v1 = x;
+        Viewport viewport = new Viewport
+        {
+            MinDepth = (float) 0.0,
+            MaxDepth = (float) 1.0
+        };
+        int v1 = x;
       int v2 = y;
       int v3 = x + w;
       int v4 = y + h;
@@ -297,13 +301,13 @@ namespace PlayUO
       Renderer.Fix(ref v2, Engine.ScreenHeight);
       Renderer.Fix(ref v3, Engine.ScreenWidth);
       Renderer.Fix(ref v4, Engine.ScreenHeight);
-      viewport.X = (__Null) v1;
-      viewport.Y = (__Null) v2;
-      viewport.Width = (__Null) (v3 - v1);
-      viewport.Height = (__Null) (v4 - v2);
+      viewport.X =  v1;
+      viewport.Y = v2;
+      viewport.Width = (v3 - v1);
+      viewport.Height = (v4 - v2);
       if (viewport.Width == null || viewport.Height == null)
         return false;
-      Engine.m_Device.set_Viewport(viewport);
+      Engine.m_Device.Viewport = viewport;
       return true;
     }
 
@@ -1488,7 +1492,7 @@ label_105:
       Renderer.m_VertexStream = (BufferedVertexStream) null;
       Renderer._alphaTestEnable = false;
       Renderer._alphaEnable = false;
-      Engine.m_Device.set_VertexFormat((VertexFormat) 324);
+      Engine.m_Device.VertexFormat = (VertexFormat) 324;
       Engine.m_Device.SetSamplerState(0, (SamplerState) 1, (TextureAddress) 3);
       Engine.m_Device.SetSamplerState(0, (SamplerState) 2, (TextureAddress) 3);
       Device device1 = Engine.m_Device;
@@ -1684,10 +1688,10 @@ label_105:
       }
       catch (SharpDXException ex)
       {
-        Result resultCode = ex.get_ResultCode();
+        Result resultCode = ex.ResultCode;
         // ISSUE: explicit reference operation
-        int code = ((Result) @resultCode).get_Code();
-        if (code == ((ResultDescriptor) ResultCode.DeviceLost).get_Code())
+        int code = ((Result) @resultCode).Code;
+        if (code == ((ResultDescriptor) ResultCode.DeviceLost).Code)
         {
           try
           {
@@ -1703,7 +1707,7 @@ label_105:
           Application.DoEvents();
           Thread.Sleep(10);
         }
-        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).get_Code())
+        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).Code)
         {
           Engine.m_Device.Reset(new PresentParameters[1]
           {
@@ -1747,10 +1751,10 @@ label_105:
         }
         catch (SharpDXException ex)
         {
-          Result resultCode = ex.get_ResultCode();
+          Result resultCode = ex.ResultCode;
           // ISSUE: explicit reference operation
-          int code = ((Result) @resultCode).get_Code();
-          if (code == ((ResultDescriptor) ResultCode.DeviceLost).get_Code())
+          int code = ((Result) @resultCode).Code;
+          if (code == ((ResultDescriptor) ResultCode.DeviceLost).Code)
           {
             try
             {
@@ -1767,7 +1771,7 @@ label_105:
             Thread.Sleep(10);
             return false;
           }
-          if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).get_Code())
+          if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).Code)
           {
             Engine.m_Device.Reset(new PresentParameters[1]
             {
@@ -2201,7 +2205,7 @@ label_105:
       Stats.Reset();
       try
       {
-        Engine.m_Device.Clear((ClearFlags) 3, ColorBGRA.op_Implicit((Color) Color.Black), 1f, 0);
+        Engine.m_Device.Clear((ClearFlags) 3, new RawColorBGRA(0, 0, 0, 255), 1f, 0);
       }
       catch
       {
@@ -3081,8 +3085,7 @@ label_105:
                             Renderer.PushAlpha(mobile.Ghost ? 0.5f : num46);
                             obj2.DrawGame(frame2.Image, TextureX1, TextureY1, color1);
                             Renderer.PopAlpha();
-                          }
-label_290:
+                          }label_290:
                           if (obj2.Layer == Layer.Mount && flag9)
                           {
                             Renderer.PushAlpha(alpha2);
@@ -3382,10 +3385,10 @@ label_290:
       }
       catch (SharpDXException ex)
       {
-        Result resultCode = ex.get_ResultCode();
+        Result resultCode = ex.ResultCode;
         // ISSUE: explicit reference operation
-        int code = ((Result) @resultCode).get_Code();
-        if (code == ((ResultDescriptor) ResultCode.DeviceLost).get_Code())
+        int code = ((Result) @resultCode).Code;
+        if (code == ((ResultDescriptor) ResultCode.DeviceLost).Code)
         {
           try
           {
@@ -3401,7 +3404,7 @@ label_290:
           Application.DoEvents();
           Thread.Sleep(10);
         }
-        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).get_Code())
+        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).Code)
         {
           Engine.m_Device.Reset(new PresentParameters[1]
           {
@@ -3444,10 +3447,10 @@ label_290:
       }
       catch (SharpDXException ex)
       {
-        Result resultCode = ex.get_ResultCode();
+        Result resultCode = ex.ResultCode;
         // ISSUE: explicit reference operation
-        int code = ((Result) @resultCode).get_Code();
-        if (code == ((ResultDescriptor) ResultCode.DeviceLost).get_Code())
+        int code = ((Result) @resultCode).Code;
+        if (code == ((ResultDescriptor) ResultCode.DeviceLost).Code)
         {
           try
           {
@@ -3463,7 +3466,7 @@ label_290:
           Application.DoEvents();
           Thread.Sleep(10);
         }
-        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).get_Code())
+        else if (code == ((ResultDescriptor) ResultCode.DeviceNotReset).Code)
         {
           Engine.m_Device.Reset(new PresentParameters[1]
           {
@@ -3554,7 +3557,7 @@ label_290:
       TextureFilter textureFilter = filterState ? (TextureFilter) 2 : (TextureFilter) 1;
       Engine.m_Device.SetSamplerState(0, (SamplerState) 6, textureFilter);
       Engine.m_Device.SetSamplerState(0, (SamplerState) 5, textureFilter);
-      Engine.m_Device.SetRenderState<ShadeMode>((RenderState) 9, (M0) 2);
+      Engine.m_Device.SetRenderState<ShadeMode>((RenderState) 9, (ShadeMode) 2);
       Engine.m_Device.SetRenderState((RenderState) 161, filterState && Preferences.Current.RenderSettings.SmoothingMode != 0);
     }
 
@@ -3587,36 +3590,36 @@ label_290:
             {
               case DrawBlendType.Normal:
                 device.SetRenderState((RenderState) 206, false);
-                device.SetRenderState<Blend>((RenderState) 19, (M0) 5);
-                device.SetRenderState<Blend>((RenderState) 20, (M0) 6);
-                device.SetRenderState<BlendOperation>((RenderState) 171, (M0) 1);
+                device.SetRenderState<Blend>((RenderState) 19, (Blend) 5);
+                device.SetRenderState<Blend>((RenderState) 20, (Blend) 6);
+                device.SetRenderState<BlendOperation>((RenderState) 171, (BlendOperation) 1);
                 break;
               case DrawBlendType.Additive:
                 device.SetRenderState((RenderState) 206, false);
-                device.SetRenderState<Blend>((RenderState) 19, (M0) 5);
-                device.SetRenderState<Blend>((RenderState) 20, (M0) 2);
-                device.SetRenderState<BlendOperation>((RenderState) 171, (M0) 1);
+                device.SetRenderState<Blend>((RenderState) 19, (Blend) 5);
+                device.SetRenderState<Blend>((RenderState) 20, (Blend) 2);
+                device.SetRenderState<BlendOperation>((RenderState) 171, (BlendOperation) 1);
                 break;
               case DrawBlendType.Subtractive:
                 device.SetRenderState((RenderState) 206, true);
-                device.SetRenderState<Blend>((RenderState) 19, (M0) 5);
-                device.SetRenderState<Blend>((RenderState) 20, (M0) 2);
-                device.SetRenderState<BlendOperation>((RenderState) 171, (M0) 3);
-                device.SetRenderState<Blend>((RenderState) 207, (M0) 5);
-                device.SetRenderState<Blend>((RenderState) 208, (M0) 7);
-                device.SetRenderState<BlendOperation>((RenderState) 209, (M0) 5);
+                device.SetRenderState<Blend>((RenderState) 19, (Blend) 5);
+                device.SetRenderState<Blend>((RenderState) 20, (Blend) 2);
+                device.SetRenderState<BlendOperation>((RenderState) 171, (BlendOperation) 3);
+                device.SetRenderState<Blend>((RenderState) 207, (Blend) 5);
+                device.SetRenderState<Blend>((RenderState) 208, (Blend) 7);
+                device.SetRenderState<BlendOperation>((RenderState) 209, (BlendOperation) 5);
                 break;
               case DrawBlendType.LightSource:
                 device.SetRenderState((RenderState) 206, false);
-                device.SetRenderState<Blend>((RenderState) 19, (M0) 1);
-                device.SetRenderState<Blend>((RenderState) 20, (M0) 3);
-                device.SetRenderState<BlendOperation>((RenderState) 171, (M0) 3);
+                device.SetRenderState<Blend>((RenderState) 19, (Blend) 1);
+                device.SetRenderState<Blend>((RenderState) 20, (Blend) 3);
+                device.SetRenderState<BlendOperation>((RenderState) 171, (BlendOperation) 3);
                 break;
               case DrawBlendType.BlackTransparency:
                 device.SetRenderState((RenderState) 206, false);
-                device.SetRenderState<Blend>((RenderState) 19, (M0) 1);
-                device.SetRenderState<Blend>((RenderState) 20, (M0) 3);
-                device.SetRenderState<BlendOperation>((RenderState) 171, (M0) 1);
+                device.SetRenderState<Blend>((RenderState) 19, (Blend) 1);
+                device.SetRenderState<Blend>((RenderState) 20, (Blend) 3);
+                device.SetRenderState<BlendOperation>((RenderState) 171, (BlendOperation) 1);
                 break;
             }
           }
@@ -3633,7 +3636,7 @@ label_290:
               if (Renderer._currentIndexBuffer != indexBuffer)
               {
                 Renderer._currentIndexBuffer = indexBuffer;
-                device.set_Indices(indexBuffer);
+                device.Indices = indexBuffer;
               }
               device.DrawIndexedPrimitive(objectFormat.Type, num, 0, vertexCount, 0, objectFormat.PrimitiveCount * textureVb.m_Count);
             }
@@ -3681,7 +3684,7 @@ label_290:
       if (pixelShader != Renderer._psh)
       {
         Renderer._psh = pixelShader;
-        Engine.m_Device.set_PixelShader(pixelShader);
+        Engine.m_Device.PixelShader = pixelShader;
         if (Renderer._profile != null)
           ++Renderer._profile._psh;
       }
@@ -3733,7 +3736,7 @@ label_290:
         num1 += vertexCount;
       }
       IndexBuffer indexBuffer = new IndexBuffer(Engine.m_Device, numArray.Length * 2, (Usage) 8, (Pool) 1, true);
-      indexBuffer.Lock(0, 0, (LockFlags) 0).WriteRange<short>((M0[]) numArray);
+      indexBuffer.Lock(0, 0, (SharpDX.Direct3D9.LockFlags) 0).WriteRange<short>(numArray);
       indexBuffer.Unlock();
       return indexBuffer;
     }
@@ -3850,7 +3853,7 @@ label_290:
                 if (Renderer._currentIndexBuffer != indexBuffer)
                 {
                   Renderer._currentIndexBuffer = indexBuffer;
-                  device.set_Indices(indexBuffer);
+                  device.Indices = indexBuffer;
                 }
                 device.DrawIndexedPrimitive(objectFormat.Type, num3, 0, num2 * objectFormat.VertexCount, 0, num2 * objectFormat.PrimitiveCount);
               }

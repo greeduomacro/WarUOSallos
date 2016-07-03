@@ -10,7 +10,7 @@ namespace PlayUO.Profiles
 {
   public class Player : Character
   {
-    public new static readonly PersistableType TypeCode = new PersistableType("player", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[6]{ Friends.TypeCode, TravelAgent.TypeCode, UseOnceAgent.TypeCode, EquipAgent.TypeCode, RestockAgent.TypeCode, OrganizeAgent.TypeCode });
+    public new static readonly PersistableType TypeCode = new PersistableType("player", Construct, new PersistableType[6]{ Friends.TypeCode, TravelAgent.TypeCode, UseOnceAgent.TypeCode, EquipAgent.TypeCode, RestockAgent.TypeCode, OrganizeAgent.TypeCode });
     private static Server m_Server;
     private static Player m_Player;
     private string m_Profile;
@@ -161,7 +161,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
       {
         object obj = (object) ip.GetChild();
         if (obj is Friends)

@@ -11,12 +11,12 @@ namespace PlayUO.Profiles
 {
   public class Options : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("options", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("options", Construct);
     private OptionFlag m_Flags;
     private NotoQueryType m_NotoQuery;
     private int m_HouseLevel;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

@@ -12,14 +12,14 @@ namespace PlayUO.Profiles
 {
   public class Config : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("config", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[2]{ ProfileList.TypeCode, ServerList.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("config", Construct, new PersistableType[2]{ ProfileList.TypeCode, ServerList.TypeCode });
     public static readonly Config Current = new Config();
     private const string RelativeUserDataPath = "Sallos/Ultima Online/Configuration.xml";
     private const string RelativeLegacyPath = "config.xml";
     private ProfileList m_Profiles;
     private ServerList m_Servers;
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -107,7 +107,7 @@ namespace PlayUO.Profiles
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      while (ip.get_HasChild())
+      while (ip.HasChild)
       {
         object obj = (object) ip.GetChild();
         if (obj is ProfileList)

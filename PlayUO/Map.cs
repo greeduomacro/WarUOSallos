@@ -272,7 +272,7 @@ namespace PlayUO
     [Obsolete("etc", false)]
     public static unsafe short GetTexture(int landId)
     {
-      return (short) ((LandData) (IntPtr) Map.GetLandDataPointer(landId)).get_TextureId();
+      return (short) ((LandData) (IntPtr) Map.GetLandDataPointer(landId)).TextureId;
     }
 
     [Obsolete("etc", false)]
@@ -300,7 +300,7 @@ namespace PlayUO
     [Obsolete("etc", false)]
     public static unsafe TileFlags GetLandFlags(int landId)
     {
-      return new TileFlags(((LandData) (IntPtr) Map.GetLandDataPointer(landId)).get_Flags());
+      return new TileFlags(((LandData) (IntPtr) Map.GetLandDataPointer(landId)).Flags);
     }
 
     [Obsolete("etc", false)]
@@ -657,9 +657,9 @@ namespace PlayUO
     {
       return (System.Action<int>) (itemId =>
       {
-        ItemData* itemDataPointer = Map.GetItemDataPointer((ItemId) (int) (ushort) itemId);
+        var itemDataPointer = Map.GetItemDataPointer((ItemId)itemId);
         // ISSUE: variable of the null type
-        __Null local = itemDataPointer->Flags | flag;
+        var local = itemDataPointer->Flags | flag;
         itemDataPointer->Flags = local;
       });
     }
@@ -668,9 +668,9 @@ namespace PlayUO
     {
       return (System.Action<int>) (itemId =>
       {
-        ItemData* itemDataPointer = Map.GetItemDataPointer((ItemId) (int) (ushort) itemId);
+        var itemDataPointer = Map.GetItemDataPointer((ItemId) (int) (ushort) itemId);
         // ISSUE: variable of the null type
-        __Null local = itemDataPointer->Flags & ~flag;
+        var local = itemDataPointer->Flags & ~flag;
         itemDataPointer->Flags = local;
       });
     }

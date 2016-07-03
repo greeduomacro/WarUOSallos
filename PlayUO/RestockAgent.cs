@@ -16,9 +16,9 @@ namespace PlayUO
 {
   public class RestockAgent : PersistableObject
   {
-    public static readonly PersistableType TypeCode = new PersistableType("restock", new ConstructCallback((object) null, __methodptr(Construct)), new PersistableType[1]{ ItemRef.TypeCode });
+    public static readonly PersistableType TypeCode = new PersistableType("restock", Construct, new PersistableType[1]{ ItemRef.TypeCode });
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {
@@ -193,8 +193,8 @@ namespace PlayUO
 
     protected virtual void DeserializeChildren(PersistanceReader ip)
     {
-      this.TargetContainer = (ip.get_HasChild() ? ip.GetChild() as ItemRef : (ItemRef) null) ?? new ItemRef(0);
-      this.SourceContainer = (ip.get_HasChild() ? ip.GetChild() as ItemRef : (ItemRef) null) ?? new ItemRef(0);
+      this.TargetContainer = (ip.HasChild ? ip.GetChild() as ItemRef : (ItemRef) null) ?? new ItemRef(0);
+      this.SourceContainer = (ip.HasChild ? ip.GetChild() as ItemRef : (ItemRef) null) ?? new ItemRef(0);
     }
   }
 }

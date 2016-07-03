@@ -53,6 +53,9 @@
     <Reference Include="SharpDX.DirectSound">
       <HintPath>bin\Desktop\SharpDX.DirectSound.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Mathematics">
+      <HintPath>bin\Desktop\SharpDX.Mathematics.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.MediaFoundation">
       <HintPath>bin\Desktop\SharpDX.MediaFoundation.dll</HintPath>
     </Reference>

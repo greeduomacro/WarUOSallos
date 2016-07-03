@@ -39,7 +39,7 @@ namespace PlayUO
     protected float _maxTu;
     protected float _minTv;
     protected float _maxTv;
-    public Texture m_Surface;
+    public SharpDX.Direct3D9.Texture m_Surface;
     protected static int m_MaxTextureWidth;
     protected static int m_MaxTextureHeight;
     protected static int m_MinTextureWidth;
@@ -253,11 +253,11 @@ namespace PlayUO
       using (MemoryStream memoryStream = new MemoryStream())
       {
         bmp.Save((Stream) memoryStream, ImageFormat.Bmp);
-        this.m_Surface = SharpTexture.FromMemory(Engine.m_Device, memoryStream.ToArray(), (Usage) 0, (Pool) 1);
+        this.m_Surface = SharpDX.Direct3D9.Texture.FromMemory(Engine.m_Device, memoryStream.ToArray(), (Usage) 0, (Pool) 1);
         memoryStream.Close();
       }
       SurfaceDescription levelDescription = this.m_Surface.GetLevelDescription(0);
-      this.m_FourBPP = levelDescription.Format == 21;
+      this.m_FourBPP = levelDescription.Format.HasFlag(21);
       this._transparency = this.m_FourBPP ? TextureTransparency.Complex : TextureTransparency.Simple;
       this.m_TexWidth = (int) levelDescription.Width;
       this.m_TexHeight = (int) levelDescription.Height;
