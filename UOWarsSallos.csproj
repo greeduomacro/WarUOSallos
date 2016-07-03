@@ -36,11 +36,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PlayUO.Engine</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\DirectX\Microsoft.DirectX.dll</HintPath>
-    </Reference>
     <Reference Include="Sallos.Core">
       <HintPath>bin\Sallos.Core.dll</HintPath>
     </Reference>

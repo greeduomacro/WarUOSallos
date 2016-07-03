@@ -278,7 +278,7 @@ namespace PlayUO
     [Obsolete("etc", false)]
     private static unsafe LandData* GetLandDataPointer(int landId)
     {
-      return GetLandDataPointer(landId);
+      return GetLandDataPointer((LandId)landId);
     }
 
     public static unsafe LandData* GetLandDataPointer(LandId landId)
@@ -289,7 +289,7 @@ namespace PlayUO
     [Obsolete("etc", false)]
     public static unsafe ItemData* GetItemDataPointer(int itemId)
     {
-      return Map.GetItemDataPointer(itemId);
+      return Map.GetItemDataPointer((ItemId)itemId);
     }
 
     public static unsafe ItemData* GetItemDataPointer(ItemId itemId)
@@ -717,7 +717,7 @@ namespace PlayUO
     {
       if (Name.IndexOf('%') == -1)
         return Name;
-      Match match = Regex.Match(Name, "(?<group1>[^%]*)%(?<group2>[^%/]*)(?<group3>/[^%]*)?%");
+      Match match = Regex.Match(Name, "(?<1>[^%]*)%(?<2>[^%/]*)(?<3>/[^%]*)?%");
       if (Amount == 1)
         return match.Groups[1].Value + (match.Groups[3].Value.Length > 0 ? match.Groups[3].Value.Substring(1) : match.Groups[3].Value);
       if (match.Groups[2].Success)

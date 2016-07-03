@@ -1667,8 +1667,8 @@ namespace PlayUO
     {
       AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(Engine.CurrentDomain_UnhandledException);
       AppDomain.CurrentDomain.DomainUnload += (EventHandler) ((o, ea) => Music.Destroy());
-      if (!Engine.Verify())
-        return;
+      //if (!Engine.Verify())
+      //  return;
       try
       {
         Engine.m_FileManager = new FileManager();
@@ -1721,8 +1721,8 @@ namespace PlayUO
     public static void MainA(string[] Args)
     {
       Engine.ParseArgs(Args);
-      if (Engine._ticket == null)
-        return;
+      //if (Engine._ticket == null)
+      //  return;
       Engine.WantDirectory("data/");
       Engine.WantDirectory("data/ultima/");
       Engine.WantDirectory("data/ultima/logs/");
