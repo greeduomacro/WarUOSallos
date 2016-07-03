@@ -148,23 +148,23 @@ namespace PlayUO
       }
     }
 
-    protected virtual void SerializeAttributes(PersistanceWriter op)
+    protected override void SerializeAttributes(PersistanceWriter op)
     {
       op.SetInt32("options", (int) this.m_Options);
     }
 
-    protected virtual void DeserializeAttributes(PersistanceReader ip)
+    protected override void DeserializeAttributes(PersistanceReader ip)
     {
       this.m_Options = (ScavengerOptions) ip.GetInt32("options");
     }
 
-    protected virtual void SerializeChildren(PersistanceWriter op)
+    protected override void SerializeChildren(PersistanceWriter op)
     {
       for (int index = 0; index < this.m_Items.Count; ++index)
         this.m_Items[index].Serialize(op);
     }
 
-    protected virtual void DeserializeChildren(PersistanceReader ip)
+    protected override void DeserializeChildren(PersistanceReader ip)
     {
       while (ip.HasChild)
         this.m_Items.Add(ip.GetChild() as ItemRef);

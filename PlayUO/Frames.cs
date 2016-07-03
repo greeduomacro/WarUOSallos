@@ -20,7 +20,7 @@ namespace PlayUO
       {
         for (int index = 0; index < this.FrameList.Length; ++index)
         {
-          if (this.FrameList[index].Image.m_Surface != null && ((DisposeBase) this.FrameList[index].Image.m_Surface).get_IsDisposed())
+          if (this.FrameList[index].Image.m_Surface != null && this.FrameList[index].Image.m_Surface)
             return true;
         }
         return false;

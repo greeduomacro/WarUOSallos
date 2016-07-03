@@ -53,9 +53,9 @@ namespace PlayUO
       return Path.Combine(this.m_FilePath, Config.GetFile((int) File));
     }
 
-    public string ResolveMUL(string Path)
+    public string ResolveMUL(string path)
     {
-      return Path.Combine(this.m_FilePath, Path);
+        return Path.Combine(this.m_FilePath, path);
     }
 
     public FileStream CreateUnique(string basePath, string extension)
@@ -181,9 +181,9 @@ namespace PlayUO
     {
     }
 
-    public string BasePath(string Path)
+    public string BasePath(string path)
     {
-      return Path.Combine(this.m_BasePath, Path);
+        return Path.Combine(this.m_BasePath, path);
     }
 
     public Stream OpenMUL(Files File)
@@ -191,9 +191,9 @@ namespace PlayUO
       return this.OpenRead(Path.Combine(this.m_FilePath, Config.GetFile((int) File)));
     }
 
-    public Stream OpenMUL(string Path)
+    public Stream OpenMUL(string path)
     {
-      return this.OpenRead(Path.Combine(this.m_FilePath, Path));
+        return this.OpenRead(Path.Combine(this.m_FilePath, path));
     }
 
     protected Stream OpenRead(string Path)

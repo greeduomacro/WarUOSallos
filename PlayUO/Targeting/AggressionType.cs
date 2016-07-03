@@ -6,7 +6,7 @@
 
 namespace PlayUO.Targeting
 {
-  internal enum AggressionType
+    public enum AggressionType
   {
     Neutral,
     Offensive,

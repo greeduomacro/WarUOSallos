@@ -9,7 +9,6 @@ using PlayUO.Prompts;
 using PlayUO.Targeting;
 using PlayUO.Videos;
 using SharpDX;
-using SharpDX.Direct3D9;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +23,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using Ultima.Data;
+using Sallos;
+using SharpDX.Direct3D9;
+using Archive = Sallos.Archive;
+using Archives = Ultima.Data.Archives;
+using Rectangle = System.Drawing.Rectangle;
+using Color = System.Drawing.Color;
 
 namespace PlayUO
 {
@@ -1829,7 +1833,7 @@ namespace PlayUO
         while (!Animations.WaitLoading());
       }
       uint seed;
-      Hash.Start(ref seed);
+      Hash.Start(out seed);
       foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
         Hash.Append(assembly.FullName.ToString().GetHashCode(), ref seed);
       Hash.Finish(ref seed);
@@ -3128,10 +3132,10 @@ namespace PlayUO
         ((DisposeBase) Engine.m_VertexBuffer).Dispose();
       Engine.m_VertexBuffer = new VertexBuffer(Engine.m_Device, 32768 * TransformedColoredTextured.StrideSize, (Usage) 520, (VertexFormat) 324, (Pool) 0);
       Engine.m_Device.SetStreamSource(0, Engine.m_VertexBuffer, 0, TransformedColoredTextured.StrideSize);
-      Engine.m_Device.set_VertexFormat((VertexFormat) 324);
-      Capabilities capabilities = Engine.m_Device.get_Capabilities();
+        Engine.m_Device.VertexFormat = (VertexFormat) 324;
+      Capabilities capabilities = Engine.m_Device.Capabilities;
       // ISSUE: explicit reference operation
-      ShaderData.DeviceVersion = ((Capabilities) @capabilities).get_PixelShaderVersion();
+      ShaderData.DeviceVersion = ((Capabilities) @capabilities).PixelShaderVersion;
       Texture.Square = ((Enum) (object) (TextureCaps) capabilities.TextureCaps).HasFlag((Enum) (object) (TextureCaps) 32);
       Texture.Pow2 = ((Enum) (object) (TextureCaps) capabilities.TextureCaps).HasFlag((Enum) (object) (TextureCaps) 2);
       Texture.MaxTextureWidth = (int) capabilities.MaxTextureWidth;
@@ -3148,16 +3152,16 @@ namespace PlayUO
       Engine.m_Device.SetRenderState((RenderState) 52, false);
       Engine.m_Device.SetRenderState((RenderState) 7, true);
       Engine.m_Device.SetRenderState((RenderState) 14, true);
-      Engine.m_Device.SetRenderState<Cull>((RenderState) 22, (M0) 3);
+      Engine.m_Device.SetRenderState<Cull>((RenderState) 22, (Cull) 3);
       Engine.m_Device.SetRenderState((RenderState) 176, false);
       Engine.m_Device.SetRenderState((RenderState) 29, false);
-      Engine.m_Device.SetRenderState<ShadeMode>((RenderState) 9, (M0) 2);
+      Engine.m_Device.SetRenderState<ShadeMode>((RenderState)9, (ShadeMode) 2);
       Engine.m_Device.SetRenderState((RenderState) 137, false);
-      Engine.m_Device.SetRenderState<VertexBlend>((RenderState) 151, (M0) 0);
-      Engine.m_Device.SetRenderState<Blend>((RenderState) 19, (M0) 5);
-      Engine.m_Device.SetRenderState<Blend>((RenderState) 20, (M0) 6);
+      Engine.m_Device.SetRenderState<VertexBlend>((RenderState)151, 0);
+      Engine.m_Device.SetRenderState<Blend>((RenderState)19, (Blend) 5);
+      Engine.m_Device.SetRenderState<Blend>((RenderState)20, (Blend) 6);
       Engine.m_Device.SetRenderState((RenderState) 24, 1);
-      Engine.m_Device.SetRenderState<Compare>((RenderState) 25, (M0) 7);
+      Engine.m_Device.SetRenderState<Compare>((RenderState) 25, (Compare) 7);
       Engine.m_Device.SetRenderState((RenderState) 27, false);
       Engine.m_Device.SetRenderState((RenderState) 15, false);
       Engine.m_Device.SetTextureStageState(0, (TextureStage) 5, (TextureArgument) 2);
@@ -3172,17 +3176,17 @@ namespace PlayUO
     public static void InitDX()
     {
       Engine.m_Fullscreen = Preferences.Current.Layout.Fullscreen;
-      PresentParameters presentParameters = (PresentParameters) null;
-      presentParameters.SwapEffect = (__Null) 1;
-      presentParameters.EnableAutoDepthStencil = (__Null) Bool.op_Implicit(true);
-      presentParameters.AutoDepthStencilFormat = (__Null) 80;
-      presentParameters.PresentationInterval = (__Null) int.MinValue;
-      presentParameters.DeviceWindowHandle = (__Null) Engine.m_Display.Handle;
+      PresentParameters presentParameters = new PresentParameters();
+      presentParameters.SwapEffect = (SwapEffect) 1;
+      presentParameters.EnableAutoDepthStencil = true;
+      presentParameters.AutoDepthStencilFormat = (Format) 80;
+      presentParameters.PresentationInterval =  (PresentInterval) int.MinValue;
+      presentParameters.DeviceWindowHandle = Engine.m_Display.Handle;
       if (Engine.m_Fullscreen)
       {
-        presentParameters.Windowed = (__Null) Bool.op_Implicit(false);
+        presentParameters.Windowed = false;
         ArrayList arrayList = new ArrayList();
-        AdapterCollection adapters = Engine.m_Direct3D.get_Adapters();
+        AdapterCollection adapters = Engine.m_Direct3D.Adapters;
         if (adapters != null && ((ReadOnlyCollection<AdapterInformation>) adapters).Count > 0)
         {
           using (IEnumerator<DisplayMode> enumerator = ((ReadOnlyCollection<DisplayMode>) ((ReadOnlyCollection<AdapterInformation>) adapters)[0].GetDisplayModes((Format) 25)).GetEnumerator())
@@ -3199,15 +3203,15 @@ namespace PlayUO
           throw new Exception("No display modes found");
         DisplayMode displayMode = (DisplayMode) arrayList[0];
         Debug.Trace("Display Mode: {0}x{1}, {2}, {3}hz", (object) (int) displayMode.Width, (object) (int) displayMode.Height, (object) (Format) displayMode.Format, (object) (int) displayMode.RefreshRate);
-        presentParameters.BackBufferCount = (__Null) 1;
-        presentParameters.SwapEffect = (__Null) 2;
+        presentParameters.BackBufferCount =  1;
+        presentParameters.SwapEffect =  (SwapEffect) 2;
         presentParameters.BackBufferFormat = displayMode.Format;
         presentParameters.BackBufferWidth = displayMode.Width;
         presentParameters.BackBufferHeight = displayMode.Height;
       }
       else
-        presentParameters.Windowed = (__Null) Bool.op_Implicit(true);
-      PresentParameters[] presentParametersArray = new PresentParameters[3]{ new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle, Bool.op_Implicit((Bool) presentParameters.Windowed), Bool.op_Implicit((Bool) presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval), new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle, Bool.op_Implicit((Bool) presentParameters.Windowed), Bool.op_Implicit((Bool) presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval), new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle, Bool.op_Implicit((Bool) presentParameters.Windowed), Bool.op_Implicit((Bool) presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval) };
+        presentParameters.Windowed = true;
+      PresentParameters[] presentParametersArray = new PresentParameters[3]{ new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle, (presentParameters.Windowed), (presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval), new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle,( presentParameters.Windowed), (presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval), new PresentParameters((int) presentParameters.BackBufferWidth, (int) presentParameters.BackBufferHeight, (Format) presentParameters.BackBufferFormat, (int) presentParameters.BackBufferCount, (MultisampleType) presentParameters.MultiSampleType, (int) presentParameters.MultiSampleQuality, (SwapEffect) presentParameters.SwapEffect, (IntPtr) presentParameters.DeviceWindowHandle,(presentParameters.Windowed),(presentParameters.EnableAutoDepthStencil), (Format) presentParameters.AutoDepthStencilFormat, (PresentFlags) presentParameters.PresentFlags, (int) presentParameters.FullScreenRefreshRateInHz, (PresentInterval) presentParameters.PresentationInterval) };
       int smoothingMode = Preferences.Current.RenderSettings.SmoothingMode;
       for (int index = 0; index < 3; ++index)
       {
@@ -3226,8 +3230,7 @@ namespace PlayUO
           default:
             goto default;
         }
-        presentParametersArray[index].MultiSampleType = (__Null) multisampleType;
-        goto default;
+        presentParametersArray[index].MultiSampleType = multisampleType;
       }
       Engine.m_Direct3D = new Direct3D();
       Exception innerException = (Exception) null;
@@ -3307,7 +3310,7 @@ namespace PlayUO
         int num = Math.Abs(displayMode1.Width * displayMode1.Height - this.m_WantWidth * this.m_WantHeight) - Math.Abs(displayMode2.Width * displayMode2.Height - this.m_WantWidth * this.m_WantHeight);
         if (num != 0)
           return num;
-        return (displayMode1.Format != this.m_WantFormat ? (displayMode1.Format != 25 ? (displayMode1.Format != 23 ? 3 : 2) : 1) : 0) - (displayMode2.Format != this.m_WantFormat ? (displayMode2.Format != 25 ? (displayMode2.Format != 23 ? 3 : 2) : 1) : 0);
+        return (displayMode1.Format != this.m_WantFormat ? (displayMode1.Format != (Format) 25 ? (displayMode1.Format != (Format) 23 ? 3 : 2) : 1) : 0) - (displayMode2.Format != this.m_WantFormat ? (displayMode2.Format != (Format) 25 ? (displayMode2.Format != (Format) 23 ? 3 : 2) : 1) : 0);
       }
     }
   }

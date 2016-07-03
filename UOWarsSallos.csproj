@@ -7,7 +7,7 @@
     <ProjectGuid>{BE69BC20-8A15-478F-8A3B-E2DDB17567DE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Ultima.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <ApplicationVersion>4.0.0.0</ApplicationVersion>
@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,32 +34,87 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core">
-      <HintPath>..\Sallos\Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Microsoft.DirectX.Direct3D.dll</HintPath>
+      <HintPath>bin\DirectX\Microsoft.DirectX.dll</HintPath>
+    </Reference>
+    <Reference Include="Sallos.Core">
+      <HintPath>bin\Sallos.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>SharpDX\SharpDX.dll</HintPath>
+      <HintPath>bin\Desktop\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Animation">
+      <HintPath>bin\Desktop\SharpDX.Animation.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler">
+      <HintPath>bin\Desktop\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Desktop">
+      <HintPath>bin\Desktop\SharpDX.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1">
+      <HintPath>bin\Desktop\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>bin\Desktop\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11.Effects">
+      <HintPath>bin\Desktop\SharpDX.Direct3D11.Effects.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D12">
+      <HintPath>bin\Desktop\SharpDX.Direct3D12.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>SharpDX\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>bin\Desktop\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectComposition">
+      <HintPath>bin\Desktop\SharpDX.DirectComposition.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>bin\Desktop\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectManipulation">
+      <HintPath>bin\Desktop\SharpDX.DirectManipulation.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DirectSound">
-      <HintPath>SharpDX\SharpDX.DirectSound.dll</HintPath>
+      <HintPath>bin\Desktop\SharpDX.DirectSound.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>bin\Desktop\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics">
+      <HintPath>bin\Desktop\SharpDX.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.MediaFoundation">
+      <HintPath>bin\Desktop\SharpDX.MediaFoundation.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.RawInput">
+      <HintPath>bin\Desktop\SharpDX.RawInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XAudio2">
+      <HintPath>bin\Desktop\SharpDX.XAudio2.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>bin\Desktop\SharpDX.XInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Ultima.Client">
-      <HintPath>lib\Ultima.Client.exe</HintPath>
+    <Reference Include="Ultima.Client.Terrain">
+      <HintPath>.\Ultima.Client.Terrain.dll</HintPath>
+    </Reference>
+    <Reference Include="Ultima.Data">
+      <HintPath>.\Ultima.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

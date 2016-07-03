@@ -100,23 +100,23 @@ namespace PlayUO
         Engine.AddTextMessage("No use-once items were found on your person.");
     }
 
-    protected virtual void SerializeAttributes(PersistanceWriter op)
+    protected override void SerializeAttributes(PersistanceWriter op)
     {
       op.SetInt32("index", this.m_Index);
     }
 
-    protected virtual void DeserializeAttributes(PersistanceReader ip)
+    protected override void DeserializeAttributes(PersistanceReader ip)
     {
       this.m_Index = ip.GetInt32("index");
     }
 
-    protected virtual void SerializeChildren(PersistanceWriter op)
+    protected override void SerializeChildren(PersistanceWriter op)
     {
       for (int index = 0; index < this.m_Items.Count; ++index)
         this.m_Items[index].Serialize(op);
     }
 
-    protected virtual void DeserializeChildren(PersistanceReader ip)
+    protected override void DeserializeChildren(PersistanceReader ip)
     {
       while (ip.HasChild)
         this.m_Items.Add(ip.GetChild() as ItemRef);

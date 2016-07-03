@@ -150,7 +150,7 @@ namespace PlayUO.Profiles
       return (PersistableObject) new NotorietyHues();
     }
 
-    protected virtual void SerializeAttributes(PersistanceWriter op)
+    protected override void SerializeAttributes(PersistanceWriter op)
     {
       op.SetInt32("innocent", this.Innocent);
       op.SetInt32("ally", this.Ally);
@@ -161,7 +161,7 @@ namespace PlayUO.Profiles
       op.SetInt32("vendor", this.Vendor);
     }
 
-    protected virtual void DeserializeAttributes(PersistanceReader ip)
+    protected override void DeserializeAttributes(PersistanceReader ip)
     {
       this.Innocent = ip.GetInt32("innocent");
       this.Ally = ip.GetInt32("ally");

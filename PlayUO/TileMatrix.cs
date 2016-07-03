@@ -8,6 +8,7 @@ using Sallos;
 using System;
 using System.IO;
 using Ultima.Data;
+using Archive = Sallos.Archive;
 
 namespace PlayUO
 {

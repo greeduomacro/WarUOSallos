@@ -55,13 +55,13 @@ namespace PlayUO
       return (PersistableObject) new TravelAgent();
     }
 
-    protected virtual void SerializeChildren(PersistanceWriter op)
+    protected override void SerializeChildren(PersistanceWriter op)
     {
       for (int index = 0; index < this.m_Runebooks.Count; ++index)
         this.m_Runebooks[index].Serialize(op);
     }
 
-    protected virtual void DeserializeChildren(PersistanceReader ip)
+    protected override void DeserializeChildren(PersistanceReader ip)
     {
       while (ip.HasChild)
         this.m_Runebooks.Add(ip.GetChild() as RunebookInfo);

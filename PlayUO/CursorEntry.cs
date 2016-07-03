@@ -8,7 +8,7 @@ using PlayUO.Targeting;
 
 namespace PlayUO
 {
-  internal class CursorEntry
+    public class CursorEntry
   {
     private static TransformedColoredTextured[] m_vTargetPool = VertexConstructor.Create();
     public int m_Graphic;

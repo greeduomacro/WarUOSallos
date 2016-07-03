@@ -10,9 +10,9 @@ namespace PlayUO.Profiles
 {
   public class MusicData : VolumeData
   {
-    public static readonly PersistableType TypeCode = new PersistableType("music", new ConstructCallback((object) null, __methodptr(Construct)));
+    public static readonly PersistableType TypeCode = new PersistableType("music", Construct);
 
-    public virtual PersistableType TypeID
+    public override PersistableType TypeID
     {
       get
       {

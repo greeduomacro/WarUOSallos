@@ -253,7 +253,7 @@ namespace PlayUO
       using (MemoryStream memoryStream = new MemoryStream())
       {
         bmp.Save((Stream) memoryStream, ImageFormat.Bmp);
-        this.m_Surface = Texture.FromMemory(Engine.m_Device, memoryStream.ToArray(), (Usage) 0, (Pool) 1);
+        this.m_Surface = SharpTexture.FromMemory(Engine.m_Device, memoryStream.ToArray(), (Usage) 0, (Pool) 1);
         memoryStream.Close();
       }
       SurfaceDescription levelDescription = this.m_Surface.GetLevelDescription(0);

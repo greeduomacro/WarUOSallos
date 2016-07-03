@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Ultima.Data;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace PlayUO
 {
