@@ -796,5 +796,52 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="SallosLibs\Desktop\SharpDX.Animation.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Animation.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.D3DCompiler.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.D3DCompiler.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Desktop.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct2D1.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct2D1.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D11.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D11.Effects.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D11.Effects.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D11.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D12.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D12.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D9.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Direct3D9.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectComposition.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectComposition.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectInput.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectInput.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectManipulation.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectManipulation.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectSound.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DirectSound.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DXGI.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.DXGI.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Mathematics.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.Mathematics.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.MediaFoundation.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.MediaFoundation.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.RawInput.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.RawInput.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.XAudio2.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.XAudio2.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.XInput.dll" />
+    <Content Include="SallosLibs\Desktop\SharpDX.XInput.xml" />
+    <Content Include="SallosLibs\Desktop\SharpDX.xml" />
+    <Content Include="SallosLibs\Desktop\sharpdx_direct3d11_1_effects_arm.dll" />
+    <Content Include="SallosLibs\Desktop\sharpdx_direct3d11_1_effects_x64.dll" />
+    <Content Include="SallosLibs\Desktop\sharpdx_direct3d11_1_effects_x86.dll" />
+    <Content Include="SallosLibs\Sallos.Core.dll" />
+    <Content Include="SallosLibs\Ultima.Client.Terrain.dll" />
+    <Content Include="SallosLibs\Ultima.Data.dll" />
+    <Content Include="SallosLibs\zlib32.dll" />
+    <Content Include="SallosLibs\zlib64.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
