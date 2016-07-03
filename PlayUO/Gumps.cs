@@ -1194,7 +1194,7 @@ namespace PlayUO
         if (this.m_GumpID == 0)
           this.data = (byte[]) null;
         else
-          this.archive.TryReadFile(Gumps.GumpFactory.GetFilePath(this.m_GumpID), ref this.data);
+          this.archive.TryReadFile(Gumps.GumpFactory.GetFilePath(this.m_GumpID), out this.data);
         if (this.data != null)
           return this.data.Length > 8;
         return false;

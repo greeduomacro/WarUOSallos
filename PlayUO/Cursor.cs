@@ -154,7 +154,7 @@ namespace PlayUO
         int num2 = lockData.Height;
         int num3 = lockData.Pitch >> 1;
         short* numPtr1 = (short*) lockData.pvSrc;
-        short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) ((num2 - 1) * num3) * 2);
+        short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + ((num2 - 1) * num3) * 2);
         for (int index = 0; index < num1; ++index)
         {
           if (((int) *numPtr1 & (int) short.MaxValue) == 992)
@@ -163,7 +163,7 @@ namespace PlayUO
           *numPtr2++ = (short) 0;
         }
         short* numPtr3 = (short*) lockData.pvSrc;
-        short* numPtr4 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) (num1 - 1) * 2);
+        short* numPtr4 = (short*) ((IntPtr) lockData.pvSrc +  (num1 - 1) * 2);
         for (int index = 0; index < num2; ++index)
         {
           if (((int) *numPtr3 & (int) short.MaxValue) == 992)
@@ -185,14 +185,14 @@ namespace PlayUO
         int num2 = lockData.Height;
         int num3 = lockData.Pitch >> 1;
         short* numPtr1 = (short*) lockData.pvSrc;
-        short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) ((num2 - 1) * num3) * 2);
+        short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + ((num2 - 1) * num3) * 2);
         for (int index = 0; index < num1; ++index)
         {
           *numPtr1++ = (short) 0;
           *numPtr2++ = (short) 0;
         }
         short* numPtr3 = (short*) lockData.pvSrc;
-        short* numPtr4 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) (num1 - 1) * 2);
+        short* numPtr4 = (short*) ((IntPtr) lockData.pvSrc +  (num1 - 1) * 2);
         for (int index = 0; index < num2; ++index)
         {
           *numPtr3 = (short) 0;

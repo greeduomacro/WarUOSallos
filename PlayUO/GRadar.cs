@@ -247,7 +247,7 @@ namespace PlayUO
       {
         for (int index1 = 0; index1 < w; ++index1)
         {
-          short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) (index1 << 3) * 2);
+          short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + (index1 << 3) * 2);
           for (int index2 = 0; index2 < h; ++index2)
           {
             MapBlock block = matrix.GetBlock(x + index1, y + index2);
@@ -333,7 +333,7 @@ namespace PlayUO
                 {
                   if (num5 >= 0 && num5 < h << 3)
                   {
-                    short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc + (IntPtr) (num5 * num9) * 2);
+                    short* numPtr2 = (short*) ((IntPtr) lockData.pvSrc +  (num5 * num9) * 2);
                     short[] numArray = radar[index2];
                     int index3 = 0;
                     int index4 = obj.X - (x << 3) + xMin;

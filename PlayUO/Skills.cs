@@ -65,21 +65,22 @@ namespace PlayUO
         {
           this.m_Skills = new Skill[256];
           int id = 0;
+          IntPtr localPtr = new IntPtr(*(int*)numPtr1);
           while (id < 256)
           {
-            int num1 = *(int*) numPtr1;
+              int num1 = localPtr.ToInt32();
             if (num1 < 0)
             {
-              (int*) numPtr1 += 3;
+                localPtr += 3;
               ++id;
             }
             else
             {
               byte* numPtr3 = numPtr2 + num1;
-              int num2 = ((int*) numPtr1)[1];
+              int num2 = ((int*)localPtr)[1];
               if (num2 < 1)
               {
-                (int*) numPtr1 += 3;
+                  localPtr += 3;
                 ++id;
               }
               else
@@ -101,7 +102,7 @@ namespace PlayUO
                     stringBuilder.Append((char) numPtr5[index]);
                 }
                 this.m_Skills[id] = new Skill(id, action, stringBuilder.ToString());
-                (int*) numPtr1 += 3;
+                localPtr += 3;
                 ++id;
               }
             }

@@ -197,7 +197,7 @@ namespace PlayUO
       public int Write(byte[] buffer, int offset, int length)
       {
         int count = Math.Min(length, this.Available);
-        Buffer.BlockCopy((Array) buffer, offset, (Array) this._buffer, this._length, count);
+        System.Buffer.BlockCopy((Array) buffer, offset, (Array) this._buffer, this._length, count);
         this._length += count;
         return count;
       }

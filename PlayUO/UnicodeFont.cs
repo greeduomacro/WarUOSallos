@@ -387,7 +387,7 @@ namespace PlayUO
                 int num3 = num1 + character.m_xOffset;
                 fixed (byte* numPtr1 = character.m_Bits)
                 {
-                  byte* numPtr2 = buffer + ((IntPtr) (num2 + 1 + character.m_yOffset) * width).ToInt64() + (num3 + 1 + character.m_xWidth - 1);
+                  byte* numPtr2 = buffer + ((num2 + 1 + character.m_yOffset) * width) + (num3 + 1 + character.m_xWidth - 1);
                   int num4 = 32 - character.m_xWidth;
                   int num5 = character.m_xWidth + 7 >> 3;
                   int num6 = (num2 + 1 + character.m_yOffset) * width + (num3 + 1 + character.m_xWidth - 1);

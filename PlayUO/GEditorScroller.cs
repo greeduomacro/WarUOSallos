@@ -54,7 +54,7 @@ namespace PlayUO
         ushort num2 = Engine.C32216(GumpColors.ScrollBar);
         for (int index1 = 0; index1 < 16; ++index1)
         {
-          ushort* numPtr = (ushort*) ((IntPtr) lockData.pvSrc + (IntPtr) index1 * lockData.Pitch);
+          ushort* numPtr = (ushort*) ((IntPtr) lockData.pvSrc + index1 * lockData.Pitch);
           for (int index2 = 0; index2 < 16; ++index2)
             *numPtr++ = ((index1 & 1) + index2 & 1) != 0 ? num2 : num1;
         }

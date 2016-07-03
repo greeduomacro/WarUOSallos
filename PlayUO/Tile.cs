@@ -19,10 +19,10 @@ namespace PlayUO
     {
       get
       {
-        if (this.landId == 2 || this.landId == 475)
+          if ((int)landId == 2 || (int)landId == 475)
           return true;
-        if (this.landId >= 430)
-          return this.landId <= 437;
+          if ((int)landId >= 430)
+          return (int)landId <= 437;
         return false;
       }
     }
@@ -31,10 +31,10 @@ namespace PlayUO
     {
       get
       {
-        if (this.landId == 2 || this.landId == 475)
+          if ((int)landId == 2 || (int)landId == 475)
           return false;
-        if (this.landId >= 430)
-          return this.landId > 437;
+          if ((int)landId >= 430)
+              return (int)landId > 437;
         return true;
       }
     }

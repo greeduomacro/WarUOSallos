@@ -20,7 +20,7 @@ namespace PlayUO
       {
         for (int index = 0; index < this.FrameList.Length; ++index)
         {
-          if (this.FrameList[index].Image.m_Surface != null && this.FrameList[index].Image.m_Surface)
+          if (this.FrameList[index].Image.m_Surface != null && !FrameList[index].Image.m_Surface.IsDisposed)
             return true;
         }
         return false;
@@ -58,7 +58,7 @@ namespace PlayUO
     {
       for (int index = 0; index < this.FrameList.Length; ++index)
       {
-        if (this.FrameList[index].Image.m_Surface != null && !((DisposeBase) this.FrameList[index].Image.m_Surface).get_IsDisposed())
+        if (this.FrameList[index].Image.m_Surface != null && !FrameList[index].Image.m_Surface.IsDisposed)
         {
           ((DisposeBase) this.FrameList[index].Image.m_Surface).Dispose();
           Texture.m_Textures.Remove(this.FrameList[index].Image);

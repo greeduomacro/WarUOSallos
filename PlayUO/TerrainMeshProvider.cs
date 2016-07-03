@@ -19,7 +19,7 @@ namespace PlayUO
     {
       get
       {
-        return this.source.get_Divisions();
+        return this.source.Divisions;
       }
     }
 
@@ -27,7 +27,7 @@ namespace PlayUO
     {
       get
       {
-        return this.source.get_Size();
+        return this.source.Size;
       }
     }
 
@@ -35,7 +35,7 @@ namespace PlayUO
     {
       get
       {
-        return this.source.get_Stride();
+        return this.source.Stride;
       }
     }
 

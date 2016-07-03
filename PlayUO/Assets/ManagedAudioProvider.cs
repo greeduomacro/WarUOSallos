@@ -102,7 +102,7 @@ namespace PlayUO.Assets
         for (int index = 0; index < this._buffers.Count; ++index)
         {
           SecondarySoundBuffer secondarySoundBuffer = this._buffers[index];
-          BufferStatus bufferStatus = (BufferStatus) ((SoundBuffer) secondarySoundBuffer).get_Status();
+          BufferStatus bufferStatus = (BufferStatus) ((SoundBuffer) secondarySoundBuffer).Status;
           if (((Enum) (object) bufferStatus).HasFlag((Enum) (object) (BufferStatus) 2))
           {
             this._buffers.RemoveAt(index--);

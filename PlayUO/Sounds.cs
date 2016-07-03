@@ -178,14 +178,14 @@ namespace PlayUO
             num5 = -10000;
           try
           {
-            ((SoundBuffer) secondarySoundBuffer).set_Pan(num5);
+            ((SoundBuffer) secondarySoundBuffer).Pan = num5;
           }
           catch
           {
           }
           try
           {
-            ((SoundBuffer) secondarySoundBuffer).set_Volume(num6);
+            ((SoundBuffer) secondarySoundBuffer).Volume = num6;
             goto label_27;
           }
           catch
@@ -196,7 +196,7 @@ namespace PlayUO
 label_7:
         try
         {
-          ((SoundBuffer) secondarySoundBuffer).set_Pan(0);
+          ((SoundBuffer) secondarySoundBuffer).Pan = 0;
         }
         catch
         {
@@ -208,7 +208,7 @@ label_7:
           num = -10000;
         try
         {
-          ((SoundBuffer) secondarySoundBuffer).set_Volume(num);
+          ((SoundBuffer) secondarySoundBuffer).Volume = num;
         }
         catch
         {
@@ -216,12 +216,12 @@ label_7:
 label_27:
         try
         {
-          ((SoundBuffer) secondarySoundBuffer).set_Frequency((int) (22048.0 * (1.0 + (double) req.frequency)));
+          ((SoundBuffer) secondarySoundBuffer).Frequency = (int) (22048.0 * (1.0 + (double) req.frequency));
         }
         catch
         {
         }
-        ((SoundBuffer) secondarySoundBuffer).set_CurrentPosition(0);
+        ((SoundBuffer) secondarySoundBuffer).CurrentPosition = 0;
         ((SoundBuffer) secondarySoundBuffer).Play(0, (PlayFlags) 0);
       }
       catch (Exception ex)

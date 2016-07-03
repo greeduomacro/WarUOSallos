@@ -5,12 +5,13 @@
 // Assembly location: C:\Program Files (x86)\Electronic Arts\Ultima Online Classic\Ultima.Client.exe
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace PlayUO
 {
   public class TextureVB : IVertexStorage
   {
-    private static readonly int VertexSize = sizeof (TransformedColoredTextured);
+      private static readonly int VertexSize = Marshal.SizeOf(typeof(TransformedColoredTextured));
     public static ContiguousAllocator[] _allocators = new ContiguousAllocator[7]{ new ContiguousAllocator(4 * TextureVB.VertexSize, 4096), new ContiguousAllocator(8 * TextureVB.VertexSize, 2048), new ContiguousAllocator(16 * TextureVB.VertexSize, 1024), new ContiguousAllocator(32 * TextureVB.VertexSize, 512), new ContiguousAllocator(64 * TextureVB.VertexSize, 256), new ContiguousAllocator(128 * TextureVB.VertexSize, 128), new ContiguousAllocator(256 * TextureVB.VertexSize, 64) };
     public int _misses;
     public byte[] _buffer;

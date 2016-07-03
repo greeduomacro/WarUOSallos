@@ -233,8 +233,8 @@ namespace PlayUO
       if (ex is SharpDXException)
       {
         SharpDXException sharpDxException = (SharpDXException) ex;
-        Debug.Trace("Error Code -> {0}", (object) sharpDxException.get_ResultCode().ToString());
-        Debug.Trace("Error String -> {0}", (object) ((object) sharpDxException.get_Descriptor()).ToString());
+        Debug.Trace("Error Code -> {0}", (object) sharpDxException.ResultCode.ToString());
+        Debug.Trace("Error String -> {0}", (object) ((object) sharpDxException.Descriptor).ToString());
       }
       Debug.Trace("Type -> {0}", (object) ex.GetType());
       Debug.Trace("Message -> {0}", (object) ex.Message);

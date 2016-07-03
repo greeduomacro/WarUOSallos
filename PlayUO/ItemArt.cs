@@ -90,7 +90,7 @@ namespace PlayUO
 
       protected override bool CoreLookup()
       {
-        Archives.TileArt.TryReadFile(this.GetFilePath(16384 + this.m_ItemID), ref this.data);
+        Archives.TileArt.TryReadFile(this.GetFilePath(16384 + this.m_ItemID), out this.data);
         if (this.data != null)
           return this.data.Length > 8;
         return false;
@@ -112,7 +112,7 @@ namespace PlayUO
       {
         fixed (byte* numPtr1 = this.data)
         {
-          short* numPtr2 = (short*) (numPtr1 + 8 + ((IntPtr) height * 2).ToInt64() - ((this.m_Hue is Hues.ShadowHue ? new IntPtr(17) : IntPtr.Zero) * 2).ToInt64());
+          short* numPtr2 = (short*) (numPtr1 + 8 + height * 2 - (m_Hue is Hues.ShadowHue ? 17 : 0) * 2);
           short* numPtr3 = (short*) (numPtr1 + 6);
           int num1 = width;
           int num2 = height;
@@ -144,12 +144,12 @@ namespace PlayUO
                 {
                   short* numPtr9 = numPtr7;
                   IntPtr num11 = new IntPtr(2);
-                  short* numPtr10 = (short*) ((IntPtr) numPtr9 + num11);
+                  short* numPtr10 = (short*)num11 + (short)numPtr9;
                   int num12;
                   int num13 = num12 = (int) *numPtr9;
                   short* numPtr11 = numPtr10;
                   IntPtr num14 = new IntPtr(2);
-                  numPtr7 = (short*) ((IntPtr) numPtr11 + num14);
+                  numPtr7 = (short*) num14 + (short)numPtr11;
                   int num15;
                   int num16 = num15 = (int) *numPtr11;
                   if (num12 + num15 != 0)
@@ -216,12 +216,12 @@ namespace PlayUO
               {
                 short* numPtr6 = numPtr4;
                 IntPtr num7 = new IntPtr(2);
-                short* numPtr7 = (short*) ((IntPtr) numPtr6 + num7);
+                short* numPtr7 = (int) numPtr6 + (short*)num7;
                 int num8;
                 int num9 = num8 = (int) *numPtr6;
                 short* numPtr8 = numPtr7;
                 IntPtr num10 = new IntPtr(2);
-                short* numPtr9 = (short*) ((IntPtr) numPtr8 + num10);
+                short* numPtr9 = (int) numPtr8 + (short*)num10;
                 int num11;
                 int Pixels = num11 = (int) *numPtr8;
                 if (num8 + num11 != 0)

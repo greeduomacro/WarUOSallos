@@ -43,7 +43,7 @@ namespace PlayUO
         else
         {
           Texture texture = (Texture) obj;
-          if (!((DisposeBase) texture.m_Surface).get_IsDisposed())
+          if (!((DisposeBase) texture.m_Surface).IsDisposed)
             ((DisposeBase) texture.m_Surface).Dispose();
           if (texture.m_Factory != null)
             texture.m_Factory.m_Textures.Remove((object) texture);
@@ -68,7 +68,7 @@ namespace PlayUO
       for (int index = 0; index < this.m_Textures.Count; ++index)
       {
         Texture texture = (Texture) this.m_Textures[index];
-        if (texture.m_Surface == null || ((DisposeBase) texture.m_Surface).get_IsDisposed())
+        if (texture.m_Surface == null || ((DisposeBase) texture.m_Surface).IsDisposed)
           this.m_Textures.RemoveAt(index--);
         else if (texture.m_LastAccess <= num)
           TextureFactory.m_Disposing.Enqueue((object) texture);
@@ -86,7 +86,7 @@ namespace PlayUO
       if (tex.IsEmpty())
         return Texture.Empty;
       LockData lockData = tex.Lock(LockFlags.WriteOnly);
-      this.CoreProcessImage(lockData.Width, lockData.Height, lockData.Pitch, (ushort*) lockData.pvSrc, (ushort*) ((IntPtr) lockData.pvSrc + (IntPtr) lockData.Width * 2), (ushort*) ((IntPtr) lockData.pvSrc + (IntPtr) lockData.Height * lockData.Pitch), (lockData.Pitch >> 1) - lockData.Width, lockData.Pitch >> 1);
+      this.CoreProcessImage(lockData.Width, lockData.Height, lockData.Pitch, (ushort*) lockData.pvSrc, (ushort*) ((IntPtr) lockData.pvSrc +  lockData.Width * 2), (ushort*) ((IntPtr) lockData.pvSrc +  lockData.Height * lockData.Pitch), (lockData.Pitch >> 1) - lockData.Width, lockData.Pitch >> 1);
       tex.Unlock();
       this.CoreAssignArgs(tex);
       this.m_Textures.Add((object) tex);

@@ -172,7 +172,7 @@ namespace PlayUO
 
       protected override bool CoreLookup()
       {
-        Archives.TileArt.TryReadFile(this.GetFilePath(this.m_LandID), ref this.data);
+        Archives.TileArt.TryReadFile(this.GetFilePath(this.m_LandID), out this.data);
         if (this.data != null)
           return this.data.Length == 2048;
         return false;
